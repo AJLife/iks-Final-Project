@@ -1,0 +1,171 @@
+/* ==============================================
+   IBN KHALDUN CHATBOT WIDGET STYLES
+   ============================================== */
+
+/* লঞ্চার বাটন (গোল আইকন) */
+.launcher { 
+    position: fixed !important; 
+    z-index: 9998 !important; 
+    top: 60% !important; 
+    right: 20px !important; 
+    transform: translateY(-50%) !important; 
+    width: 65px !important; 
+    height: 65px !important; 
+    border: 3px solid #ffffffb0 !important; 
+    border-radius: 50% !important; 
+    background: linear-gradient(140deg, #0d39c7, #3678ff) !important; 
+    box-shadow: 0 10px 32px #153fc65c !important; 
+    padding: 8px !important; 
+    margin: 0 !important;
+    cursor: pointer !important;
+    transition: transform 0.2s ease !important;
+}
+.launcher:hover {
+    transform: translateY(-50%) scale(1.05) !important; 
+}
+/* লঞ্চার বাটনের কালারফুল এবং অ্যানিমেটেড টুলটিপ */
+.launcher {
+    position: relative; /* টুলটিপ পজিশনিংয়ের জন্য জরুরি */
+}
+
+.launcher::after {
+    content: "স্কুলের ভার্চুয়াল এসিস্টেন্ট এর সাথে সরাসরি কথা বলতে ক্লিক করুন "; /* টুলটিপের টেক্সট */
+    position: absolute;
+    right: 80px; /* আইকনের বাম পাশে শো করবে */
+    top: 50%;
+    transform: translateY(-50%) scale(0.8);
+    background: linear-gradient(135deg, #124de8, #173080, #201a48); /* কালারফুল গ্রেডিয়েন্ট */
+    color: #ffffff;
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-family: "Hind Siliguri", sans-serif;
+    font-weight: 600;
+    white-space: nowrap;
+    box-shadow: 0 5px 20px rgba(18, 77, 232, 0.4);
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: all 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* স্মুথ পপ-আপ অ্যানিমেশন */
+}
+
+/* মাউস হোভার করলে অ্যানিমেশনসহ ভেসে উঠবে */
+.launcher:hover::after {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(-50%) scale(1);
+} 
+
+.launcher img { width: 100% !important; height: 100% !important; object-fit: contain !important; border-radius: 50% !important; display: block !important; }
+.launcher i { position: absolute !important; width: 13px !important; height: 13px !important; border-radius: 50% !important; right: 0 !important; bottom: 0 !important; background: #30d68b !important; border: 2px solid white !important; }
+
+/* চ্যাট উইন্ডো মূল কন্টেইনার */
+.chat-window { 
+    position: fixed !important; 
+    top: 55% !important; 
+    right: 95px !important; 
+    transform: translateY(-50%) !important; 
+    z-index: 9999 !important; 
+    width: 100% !important;
+    max-width: 380px !important; 
+    height: 520px !important; /* ফিক্সড উচ্চতা দেওয়া হলো যাতে ইনপুট বক্স না কাটে */
+    max-height: 85vh !important;
+    display: flex !important; 
+    flex-direction: column !important; 
+    border: 1px solid #8eb6ff !important; 
+    border-radius: 20px !important; 
+    overflow: hidden !important; 
+    background: #f8fbff !important; 
+    box-shadow: 0 15px 40px rgba(17, 43, 108, 0.2) !important; 
+    transition: opacity 0.3s ease, transform 0.3s ease !important; 
+    font-family: "Hind Siliguri", sans-serif !important;
+    color: #10204f !important;
+    padding: 0 !important; 
+    margin: 0 !important;
+    box-sizing: border-box !important;
+}
+
+.chat-window * {
+    box-sizing: border-box !important;
+}
+
+/* চ্যাটবক্স হাইড করার এনিমেশন */
+.chat-window.is-hidden { 
+    opacity: 0 !important;
+    transform: translate(30px, -50%) !important; 
+    pointer-events: none !important;
+}
+.chat-window.is-hidden ~ .launcher { display: block !important; }
+
+/* হেডার ডিজাইন */
+.chat-header { position: relative !important; min-height: 150px !important; color: white !important; background: linear-gradient(115deg, #06144f, #062eab 74%, #0759f0) !important; overflow: hidden !important; padding: 0 !important; margin: 0 !important; border-radius: 0 !important;}
+.header-banner { position: absolute !important; inset: 0 !important; background: linear-gradient(90deg, #06144f 0%, #061e70df 44%, #061e7040 100%), url("assets/school-banner.jpg") center 47% / cover !important; opacity: .82 !important; }
+.header-content { position: relative !important; z-index: 1 !important; display: flex !important; align-items: flex-start !important; gap: 14px !important; padding: 20px 15px !important; margin: 0 !important; }
+.school-logo { width: 65px !important; height: 65px !important; flex: 0 0 65px !important; object-fit: contain !important; border: 2px solid #ffffff9c !important; border-radius: 50% !important; background: white !important; box-shadow: 0 0 25px #66a4ff65 !important; margin: 0 !important; padding: 0 !important;}
+.brand-copy { min-width: 0 !important; padding-top: 2px !important; text-align: left !important; }
+.brand-title { font-size: 18px !important; font-weight: 700 !important; line-height: 1.4 !important; color: white !important; margin: 0 !important;}
+.online-dot { width: 8px !important; height: 8px !important; margin: 0 0 2px 4px !important; display: inline-block !important; border-radius: 50% !important; background: #32d28a !important; box-shadow: 0 0 0 4px #32d28a20 !important; }
+.brand-subtitle { font-size: 15px !important; font-weight: 600 !important; color: #85d8ff !important; margin: 0 !important;}
+.brand-status { font-size: 11px !important; margin-top: 6px !important; color: #e2ebff !important; }
+.window-actions { margin-left: auto !important; display: flex !important; gap: 5px !important; }
+.window-actions button { border: 0 !important; background: #ffffff18 !important; color: white !important; width: 26px !important; height: 26px !important; border-radius: 8px !important; font-size: 20px !important; line-height: 1 !important; cursor: pointer !important; padding: 0 !important; display: flex !important; align-items: center !important; justify-content: center !important; margin: 0 !important;}
+
+/* চ্যাট বডি ও মেসেজ */
+.chat-body { min-height: 0 !important; flex: 1 !important; display: flex !important; flex-direction: column !important; position: relative !important; background: #f7faff !important; padding: 0 !important; margin: 0 !important;}
+.chat-body::before { content: "" !important; position: absolute !important; inset: 0 !important; background: url("assets/chat-background.jpg") center / cover no-repeat !important; opacity: .15 !important; pointer-events: none !important; }
+.messages { position: relative !important; z-index: 1 !important; flex: 1 !important; overflow-y: auto !important; padding: 20px 15px 10px !important; margin: 0 !important; }
+.message-row { display: flex !important; gap: 10px !important; align-items: flex-start !important; margin-bottom: 16px !important; }
+.message-logo { width: 32px !important; height: 32px !important; flex: 0 0 32px !important; object-fit: contain !important; border-radius: 50% !important; background: white !important; border: 1px solid #dce7ff !important; margin: 0 !important; padding: 0 !important;}
+.bubble { padding: 12px 15px !important; border-radius: 18px !important; font-size: 14px !important; line-height: 1.5 !important; overflow-wrap: anywhere !important; text-align: left !important; }
+.bot-bubble { background: #ffffffdc !important; border: 1px solid #ffffff !important; box-shadow: 0 6px 20px #193c8410 !important; border-top-left-radius: 5px !important; color: #10204f !important; }
+.timestamp { color: #7183b4 !important; font-size: 10px !important; margin: 4px 0 0 2px !important; }
+.user-row { justify-content: flex-end !important; }
+.user-bubble { color: white !important; background: linear-gradient(125deg, #103dc9, #1c62f5) !important; border-top-right-radius: 5px !important; box-shadow: 0 8px 20px #174de72b !important; }
+.user-row .timestamp { text-align: right !important; }
+
+/* কুইক অ্যাকশন বাটন */
+.quick-actions { display: grid !important; grid-template-columns: repeat(2, minmax(0, 1fr)) !important; gap: 8px !important; padding: 0 0 12px 42px !important; margin: 0 !important;}
+.quick-actions button { display: flex !important; align-items: center !important; justify-content: flex-start !important; gap: 7px !important; min-height: 40px !important; padding: 8px 10px !important; border-radius: 12px !important; border: 1px solid #b9ceff !important; background: #ffffffd9 !important; color: #1748d3 !important; font-weight: 600 !important; font-size: 13px !important; transition: .18s !important; cursor: pointer !important; margin: 0 !important;}
+.quick-actions button:hover { background: #eaf1ff !important; transform: translateY(-1px) !important; }
+.quick-actions button span { color: #19316d !important; }
+
+/* ইনপুট বক্স */
+.composer { position: relative !important; z-index: 1 !important; display: flex !important; align-items: center !important; gap: 10px !important; margin: 0 15px 10px !important; padding: 6px 8px 6px 16px !important; border: 1px solid #a8c9ff !important; background: #ffffffdc !important; border-radius: 20px !important; box-shadow: 0 5px 20px #1c4a9610 !important; }
+.composer textarea { flex: 1 !important; resize: none !important; border: 0 !important; outline: 0 !important; background: transparent !important; color: #10204f !important; min-width: 0 !important; max-height: 80px !important; padding: 8px 0 !important; line-height: 1.5 !important; font-family: inherit !important; font-size: 14px !important; margin: 0 !important;}
+.composer textarea::placeholder { color: #8b9bc5 !important; }
+.send-button { width: 38px !important; height: 38px !important; flex: 0 0 38px !important; border: 0 !important; border-radius: 50% !important; color: white !important; background: linear-gradient(140deg, #1550e7, #0736c4) !important; display: grid !important; place-items: center !important; box-shadow: 0 6px 14px #1649d52e !important; cursor: pointer !important; padding: 0 !important; margin: 0 !important;}
+.send-button:disabled { opacity: .6 !important; cursor: wait !important; }
+.send-button svg { width: 18px !important; fill: none !important; stroke: currentColor !important; stroke-width: 1.8 !important; stroke-linecap: round !important; stroke-linejoin: round !important; }
+
+/* =========================================
+   মোবাইল রেসপন্সিভ ডিজাইন (সব ডিভাইসের জন্য) 
+   ========================================= */
+@media (max-width: 768px) {
+  .chat-window {
+      top: 0 !important;
+      right: 0 !important;
+      transform: translateY(0) !important;
+      max-width: 100% !important;
+      height: 100dvh !important;
+      max-height: 100dvh !important;
+      border-radius: 0 !important;
+      border: none !important;
+  }
+  .chat-window.is-hidden { 
+      transform: translateY(30px) !important;
+  }
+  .launcher { 
+      top: auto !important; 
+      bottom: 20px !important; 
+      right: 20px !important; 
+      transform: translateY(0) !important; 
+      width: 55px !important; 
+      height: 55px !important; 
+  }
+  .launcher:hover { transform: scale(1.05) !important; }
+  .chat-header { min-height: 130px !important; }
+  .school-logo { width: 50px !important; height: 50px !important; flex-basis: 50px !important; }
+  .brand-title { font-size: 16px !important; }
+  .brand-subtitle { font-size: 14px !important; }
+  .quick-actions { padding-left: 0 !important; }
+}

@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#071c67" />
+  <title>ইবনে খালদুন অ্যাসিস্ট্যান্ট</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css" />
+</head>
+<body>
+  <main class="page">
+    <div class="page-glow"></div>
+    
+
+    <section class="chat-window" id="chatWindow" aria-label="ইবনে খালদুন অ্যাসিস্ট্যান্ট চ্যাট">
+      <header class="chat-header">
+        <div class="header-banner"></div>
+        <div class="header-content">
+          <img class="school-logo" src="/assets/logo.png" alt="স্কুল লোগো">
+          <div class="brand-copy">
+            <div class="brand-title">ইবনে খালদুন অ্যাসিস্ট্যান্ট <span class="online-dot"></span></div>
+            <div class="brand-subtitle">এর সাথে কথা বলুন</div>
+            <div class="brand-status">✦ আপনার যেকোনো প্রশ্নে আমরা আছি পাশে</div>
+          </div>
+          <div class="window-actions">
+            <button id="minimizeChat" aria-label="চ্যাট ছোট করুন">−</button>
+            <button id="closeChat" aria-label="চ্যাট বন্ধ করুন">×</button>
+          </div>
+        </div>
+      </header>
+
+      <div class="chat-body">
+        <div class="messages" id="messages" aria-live="polite">
+          <div class="message-row bot-row">
+            <img class="message-logo" src="/assets/logo.png" alt="">
+            <div>
+              <div class="bubble bot-bubble">আসসালামু আলাইকুম! 👋<br>আমি ইবনে খালদুন এর ভার্চুয়াল অ্যাসিস্ট্যান্ট। আপনাকে কিভাবে সাহায্য করতে পারি?</div>
+              <div class="timestamp">এখনই</div>
+            </div>
+          </div>
+          <div class="quick-actions" id="quickActions">
+            <button data-prompt="ইবনে খালদুন স্কুল সম্পর্কে বলুন">▤ <span>আমাদের সম্পর্কে</span></button>
+            <button data-prompt="ভর্তি সম্পর্কে কী তথ্য আছে?">♧ <span>ভর্তি তথ্য</span></button>
+            <button data-prompt="ক্লাস ও সময়সূচি সম্পর্কে জানতে চাই">▦ <span>ক্লাস ও সময়সূচি</span></button>
+            <button data-prompt="স্কুলের বিশেষ সুবিধা কী কী?">✦ <span>বিশেষ সুবিধা</span></button>
+            <button data-prompt="স্কুলের সঙ্গে কীভাবে যোগাযোগ করব?">☎ <span>যোগাযোগ</span></button>
+          </div>
+        </div>
+
+        <form class="composer" id="chatForm">
+          <textarea id="messageInput" rows="1" placeholder="আপনার বার্তা লিখুন..." aria-label="আপনার বার্তা" required></textarea>
+          <button class="send-button" id="sendButton" aria-label="বার্তা পাঠান" type="submit">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M21.5 3.5 14 21l-3.7-7.3L3 10zM10.3 13.7 21.5 3.5" /></svg>
+          </button>
+        </form>
+      </div>
+    </section>
+    <button class="launcher" id="launcher" aria-label="চ্যাট খুলুন">
+      <img src="/assets/logo.png" alt="">
+      <i></i>
+    </button>
+  </main>
+  <script src="/app.js"></script>
+</body>
+</html>

@@ -305,6 +305,43 @@ nav.main-nav a.active {
   }
 }
 
+@media (max-width: 360px) {
+  .nav-wrap {
+    gap: 8px;
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+
+  .brand {
+    min-width: 0;
+    gap: 8px;
+  }
+
+  .brand img {
+    flex: 0 0 40px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .brand .brand-text {
+    min-width: 0;
+  }
+
+  .brand .brand-text .bn {
+    font-size: 1rem;
+  }
+
+  .brand .brand-text .en {
+    font-size: 0.58rem;
+    letter-spacing: 1px;
+  }
+
+  .hamburger {
+    flex: 0 0 36px;
+    width: 36px;
+  }
+}
+
 /* ---------- Hero ---------- */
 .hero {
   position: relative;
@@ -608,6 +645,20 @@ section {
   gap: 24px;
 }
 
+.admission-layout {
+  grid-template-columns: minmax(0, 2fr) minmax(260px, 1fr);
+  gap: clamp(24px, 4vw, 40px);
+  align-items: start;
+}
+
+.admission-layout > * {
+  min-width: 0;
+}
+
+.admission-layout .form-card {
+  min-width: 0;
+}
+
 @media (max-width:940px) {
   .grid-4 {
     grid-template-columns: repeat(2, 1fr);
@@ -615,6 +666,10 @@ section {
 
   .grid-3 {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .admission-layout {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 
@@ -624,6 +679,10 @@ section {
   .grid-3,
   .grid-2 {
     grid-template-columns: 1fr;
+  }
+
+  .admission-layout .form-card {
+    padding: 22px 18px;
   }
 }
 
@@ -772,12 +831,6 @@ section {
 .staff-pagination button:disabled {
   opacity: 0.45;
   cursor: not-allowed;
-}
-
-.board-home-action {
-  display: flex;
-  justify-content: center;
-  margin-top: 28px;
 }
 
 @media (max-width: 640px) {
@@ -1240,6 +1293,10 @@ section {
   gap: 40px;
 }
 
+.contact-grid > * {
+  min-width: 0;
+}
+
 @media (max-width:900px) {
   .contact-grid {
     grid-template-columns: 1fr;
@@ -1259,6 +1316,10 @@ section {
   min-width: 28px;
 }
 
+.info-item > div:last-child {
+  min-width: 0;
+}
+
 .info-item h4 {
   color: var(--white);
   font-size: 0.98rem;
@@ -1269,6 +1330,10 @@ section {
 .info-item a {
   color: #C6CDD8;
   font-size: 0.92rem;
+}
+
+.info-item a[href^="mailto:"] {
+  overflow-wrap: anywhere;
 }
 
 .map-embed {
@@ -1287,6 +1352,10 @@ section {
 /* ---------- Footer ---------- */
 footer {
   background: #111822;
+  background-image: linear-gradient(rgba(17, 24, 34, 0.86), rgba(17, 24, 34, 0.86)), url("img/scl%20-%20Copy.jpg");
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
   color: #B9C3D1;
   padding-top: 64px;
   border-top: 4px solid var(--gold);
@@ -1311,6 +1380,10 @@ footer {
   }
 }
 
+.footer-grid > div {
+  min-width: 0;
+}
+
 .footer-brand {
   display: flex;
   align-items: center;
@@ -1332,6 +1405,10 @@ footer {
 footer p.desc {
   font-size: 0.9rem;
   max-width: 280px;
+}
+
+footer a[href^="mailto:"] {
+  overflow-wrap: anywhere;
 }
 
 footer h5 {
@@ -1486,6 +1563,20 @@ footer ul a:hover {
   padding: 34px 20px 44px;
 }
 
+.page-home-cta .btn-navy {
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(15, 37, 64, 0.16);
+  transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+}
+
+.page-home-cta .btn-navy:hover {
+  box-shadow: 0 7px 18px rgba(15, 37, 64, 0.22);
+}
+
+.page-action-group {
+  display: contents;
+}
+
 .mt-24 {
   margin-top: 24px;
 }
@@ -1534,6 +1625,42 @@ footer ul a:hover {
 .cta-strip p {
   color: #4A3B14;
   margin-top: 6px;
+}
+
+@media (max-width: 640px) {
+  .page-action-group {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 14px 10px;
+    align-items: center;
+    padding: 28px 16px 32px;
+    background: var(--gold);
+  }
+
+  .page-action-group > .cta-strip,
+  .page-action-group > .cta-strip > .container,
+  .page-action-group > .page-home-cta {
+    display: contents;
+  }
+
+  .page-action-group > .cta-strip > .container > div:first-child {
+    grid-column: 1 / -1;
+  }
+
+  .page-action-group > .cta-strip > .container > .btn,
+  .page-action-group > .page-home-cta > .btn {
+    width: 100%;
+    min-width: 0;
+    padding: 12px 6px;
+    border-radius: 8px;
+    font-size: 0.88rem;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .page-action-group > .page-home-cta > .btn {
+    box-shadow: 0 4px 12px rgba(15, 37, 64, 0.16);
+  }
 }
 
 /* ---------- Scroll to top with progress ring ---------- */
@@ -2173,7 +2300,7 @@ li.has-dropdown:hover>a .caret {
 /* ---------- Feature row (key highlights) ---------- */
 .feature-row {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 24px;
 }
 
@@ -3094,4 +3221,237 @@ button.nav-cta {
 @media (max-width: 640px) {
   .dash-grid { grid-template-columns: 1fr 1fr; }
   .dash-panel { padding: 18px; }
+}
+
+
+/* =========================================
+   Ibn Khaldun Staff Section (Final Fixes)
+   ========================================= */
+
+/* 1. Background Image Wrapper (যাতে মেইন কন্টেইনার না ভাঙে) */
+.iks-staff-wrapper {
+  position: relative;
+  background: linear-gradient(rgba(252, 251, 248, 0.81), rgba(252, 251, 248, 0.81)), url('img/scl%20-%20Copy.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 20px;
+  padding: 40px;
+  margin: 40px 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+/* 2. Main Layout */
+.iks-main-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+@media (min-width: 992px) {
+  .iks-main-grid {
+    grid-template-columns: 1.3fr 1fr; 
+    gap: 70px;
+  }
+}
+
+/* 3. Left Side Content */
+.iks-kicker {
+  display: inline-flex;
+  align-items: center;
+  background-color: #c89552;
+  color: #fff;
+  padding: 6px 18px;
+  border-radius: 30px;
+  font-size: 0.9rem;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.iks-title {
+  color: #0b2b53;
+  font-size: clamp(2rem, 3.5vw, 2.8rem);
+  font-weight: 800;
+  margin-bottom: 15px;
+}
+
+.iks-desc {
+  color: #5A5F6B;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-bottom: 30px;
+}
+
+/* Stats */
+.iks-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 10px;
+  margin-bottom: 35px;
+  border-top: 1px solid rgba(0,0,0,0.1);
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+  padding: 20px 0;
+  text-align: center;
+}
+
+.iks-stat-box {
+  border-right: 1px solid rgba(0,0,0,0.1);
+}
+
+.iks-stat-box:last-child {
+  border: none;
+}
+
+.iks-stat-icon {
+  font-size: 1.5rem;
+  margin-bottom: 5px;
+  color: #0b2b53;
+}
+
+.iks-stat-num {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #0b2b53;
+  margin: 0;
+}
+
+.iks-stat-text {
+  font-size: 0.8rem;
+  color: #5A5F6B;
+}
+
+.iks-btn-all {
+  display: inline-flex;
+  align-items: center;
+  background-color: #0b2b53;
+  color: #fff;
+  padding: 12px 25px;
+  border-radius: 30px;
+  text-decoration: none;
+  font-weight: bold;
+  border: 2px solid #0b2b53;
+  transition: 0.3s;
+}
+
+.iks-btn-all:hover {
+  background-color: transparent;
+  color: #0b2b53;
+}
+
+/* 4. Right Side Cards */
+.iks-right-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.iks-card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 10px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+  display: flex;
+  flex-direction: column;
+}
+
+.iks-card-img-wrap {
+  position: relative;
+  height: 230px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #f0f0f0;
+}
+
+.iks-card-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  display: block;
+}
+
+.iks-card-img-wrap::before {
+  content: '';
+  position: absolute;
+  top: -25px;
+  left: -25px;
+  width: 50px;
+  height: 50px;
+  background-color: #0b2b53;
+  transform: rotate(45deg);
+  z-index: 2;
+}
+
+.iks-badge {
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  background-color: #a77a33;
+  color: #fff;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.70rem;
+  font-weight: bold;
+  z-index: 3;
+}
+
+.iks-card-info {
+  padding: 15px 5px 5px 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.iks-card-text h3 {
+  margin: 0 0 4px 0;
+  color: #0b2b53;
+  font-size: 1.05rem;
+  font-weight: bold;
+}
+
+.iks-card-text p {
+  margin: 0;
+  color: #5A5F6B;
+  font-size: 0.8rem;
+}
+
+.iks-arrow-btn {
+  background-color: #0b2b53;
+  color: #fff;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: 0.3s;
+  flex-shrink: 0;
+}
+
+.iks-arrow-btn:hover {
+  background-color: #c89552;
+}
+
+/* 5. Mobile Responsive Fixes (Hide right side & adjust stats) */
+@media (max-width: 991px) {
+  /* মোবাইলে কার্ডগুলো হাইড করা হয়েছে */
+  .iks-hide-on-mobile {
+    display: none !important;
+  }
+  
+  .iks-staff-wrapper {
+    padding: 20px; /* মোবাইলের জন্য প্যাডিং কমানো হলো */
+  }
+
+  .iks-stats {
+    grid-template-columns: repeat(2, 1fr);
+    row-gap: 20px;
+  }
+  .iks-stat-box:nth-child(2) {
+    border-right: none;
+  }
 }
