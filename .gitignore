@@ -6,3 +6,4 @@ assets/videos/
 assets/img/*.mp4
 .vercel
 .env*
+node_modules/
