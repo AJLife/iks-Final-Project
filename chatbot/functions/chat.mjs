@@ -42,27 +42,41 @@ export default async (request) => {
     return jsonResponse(400, { error: "A message is required" });
   }
 
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 20_000);
+
   try {
-    const response = await fetch(
-      "https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent",
-      {
-        method: "POST",
-        signal: AbortSignal.timeout(20_000),
-        headers: {
-          "Content-Type": "application/json",
-          "x-goog-api-key": apiKey.trim()
-        },
-        body: JSON.stringify({
-          system_instruction: { parts: [{ text: SYSTEM_INSTRUCTION }] },
-          generationConfig: { maxOutputTokens: 500, temperature: 0.4 },
-          contents: [{ role: "user", parts: [{ text: lastUserMessage }] }]
-        })
-      }
-    );
+    let response;
+    for (let attempt = 0; attempt < 3; attempt += 1) {
+      response = await fetch(
+        "https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent",
+        {
+          method: "POST",
+          signal: controller.signal,
+          headers: {
+            "Content-Type": "application/json",
+            "x-goog-api-key": apiKey.trim()
+          },
+          body: JSON.stringify({
+            system_instruction: { parts: [{ text: SYSTEM_INSTRUCTION }] },
+            generationConfig: { maxOutputTokens: 500, temperature: 0.4 },
+            contents: [{ role: "user", parts: [{ text: lastUserMessage }] }]
+          })
+        }
+      );
+
+      if (![429, 503].includes(response.status) || attempt === 2) break;
+      await new Promise(resolve => setTimeout(resolve, 500 * (attempt + 1)));
+    }
 
     const data = await response.json();
     if (!response.ok) {
       console.error("Gemini API request failed:", response.status, data.error?.message || "Unknown API error");
+      if ([429, 503].includes(response.status)) {
+        return jsonResponse(response.status, {
+          error: "এআই সহকারী এখন ব্যস্ত আছে। অনুগ্রহ করে কিছুক্ষণ পর আবার চেষ্টা করুন।"
+        });
+      }
       return jsonResponse(response.status, {
         error: data.error?.message || "Gemini API Error"
       });
@@ -76,9 +90,11 @@ export default async (request) => {
     return jsonResponse(200, { reply });
   } catch (error) {
     console.error("Gemini request failed:", error);
-    if (error.name === "TimeoutError" || error.name === "AbortError") {
+    if (controller.signal.aborted || error.name === "TimeoutError" || error.name === "AbortError") {
       return jsonResponse(504, { error: "উত্তর পেতে বেশি সময় লাগছে। অনুগ্রহ করে আবার চেষ্টা করুন।" });
     }
     return jsonResponse(502, { error: "সার্ভারের সঙ্গে যোগাযোগ করা যাচ্ছে না।" });
+  } finally {
+    clearTimeout(timeout);
   }
 };
