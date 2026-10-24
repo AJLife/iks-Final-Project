@@ -47,6 +47,7 @@ export default async (request) => {
       "https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent",
       {
         method: "POST",
+        signal: AbortSignal.timeout(20_000),
         headers: {
           "Content-Type": "application/json",
           "x-goog-api-key": apiKey.trim()
@@ -61,6 +62,7 @@ export default async (request) => {
 
     const data = await response.json();
     if (!response.ok) {
+      console.error("Gemini API request failed:", response.status, data.error?.message || "Unknown API error");
       return jsonResponse(response.status, {
         error: data.error?.message || "Gemini API Error"
       });
@@ -74,6 +76,9 @@ export default async (request) => {
     return jsonResponse(200, { reply });
   } catch (error) {
     console.error("Gemini request failed:", error);
+    if (error.name === "TimeoutError" || error.name === "AbortError") {
+      return jsonResponse(504, { error: "উত্তর পেতে বেশি সময় লাগছে। অনুগ্রহ করে আবার চেষ্টা করুন।" });
+    }
     return jsonResponse(502, { error: "সার্ভারের সঙ্গে যোগাযোগ করা যাচ্ছে না।" });
   }
 };

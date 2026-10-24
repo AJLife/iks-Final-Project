@@ -7,6 +7,14 @@ const form = document.getElementById("chatForm");
 const input = document.getElementById("messageInput");
 const sendButton = document.getElementById("sendButton");
 const quickActions = document.getElementById("quickActions");
+const appScriptUrl = document.currentScript?.src;
+const isLocalPreview = ["localhost", "127.0.0.1"].includes(window.location.hostname);
+const isStandaloneChatbot = appScriptUrl ? new URL(appScriptUrl).pathname === "/app.js" : false;
+const chatEndpoint = isLocalPreview && window.location.port === "5500"
+  ? "http://localhost:3000/api/chat"
+  : "/api/chat";
+const schoolLogoUrl = document.querySelector(".school-logo")?.src
+  || (appScriptUrl ? new URL("assets/logo.png", appScriptUrl).href : "");
 
 const history = [];
 
@@ -40,8 +48,7 @@ function addMessage(role, text) {
   if (role === "assistant") {
     const logo = document.createElement("img");
     logo.className = "message-logo";
-    // লোগোর সঠিক পাথ ফিক্স করা হয়েছে যাতে প্রতিবার লোগো আসে
-    logo.src = "/chatbot/public/assets/logo.png";
+    logo.src = schoolLogoUrl;
     logo.alt = "স্কুল লোগো";
     row.appendChild(logo);
   }
@@ -69,7 +76,7 @@ function addTyping() {
 
   const logo = document.createElement("img");
   logo.className = "message-logo";
-  logo.src = "/chatbot/public/assets/logo.png"; // টাইপিং ইন্ডিকেটরেও সঠিক লোগো পাথ
+  logo.src = schoolLogoUrl;
   row.appendChild(logo);
 
   const wrapper = document.createElement("div");
@@ -111,16 +118,26 @@ async function sendMessage(rawText) {
   addTyping();
 
   try {
-    const response = await fetch("/api/chat", {
+    const endpoint = isStandaloneChatbot ? "/api/chat" : chatEndpoint;
+    const response = await fetch(endpoint, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ messages: history })
     });
 
-    const data = await response.json();
+    let data;
+    try {
+      data = await response.json();
+    } catch {
+      throw new Error("সার্ভার থেকে উত্তর পাওয়া যায়নি। কিছুক্ষণ পর আবার চেষ্টা করুন।");
+    }
 
     if (!response.ok) {
       throw new Error(data.error || "সার্ভার থেকে সঠিক ডাটা আসেনি।");
+    }
+
+    if (typeof data.reply !== "string" || !data.reply.trim()) {
+      throw new Error("দুঃখিত, এই মুহূর্তে উত্তর পাওয়া যাচ্ছে না। আবার চেষ্টা করুন।");
     }
 
     removeTyping();
@@ -128,7 +145,10 @@ async function sendMessage(rawText) {
     history.push({ role: "assistant", text: data.reply });
   } catch (error) {
     removeTyping();
-    addMessage("assistant", `দুঃখিত, সংযোগে সমস্যা হয়েছে।`);
+    const message = error instanceof TypeError && isLocalPreview
+      ? "লোকাল preview-তে chatbot চালাতে chatbot সার্ভারটিও চালু করুন।"
+      : error.message || "দুঃখিত, সংযোগে সমস্যা হয়েছে। কিছুক্ষণ পর আবার চেষ্টা করুন।";
+    addMessage("assistant", message);
   } finally {
     sendButton.disabled = false;
     input.focus();

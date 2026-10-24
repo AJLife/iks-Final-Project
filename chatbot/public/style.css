@@ -140,32 +140,47 @@
 /* =========================================
    মোবাইল রেসপন্সিভ ডিজাইন (সব ডিভাইসের জন্য) 
    ========================================= */
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .chat-window {
-      top: 0 !important;
-      right: 0 !important;
+      top: auto !important;
+      right: 12px !important;
+      bottom: calc(82px + env(safe-area-inset-bottom)) !important;
       transform: translateY(0) !important;
-      max-width: 100% !important;
-      height: 100dvh !important;
-      max-height: 100dvh !important;
-      border-radius: 0 !important;
-      border: none !important;
+      width: min(360px, calc(100vw - 24px)) !important;
+      max-width: 360px !important;
+      height: min(520px, calc(100dvh - 106px - env(safe-area-inset-bottom))) !important;
+      max-height: calc(100dvh - 106px - env(safe-area-inset-bottom)) !important;
+      min-height: min(280px, calc(100dvh - 106px - env(safe-area-inset-bottom))) !important;
+      border-radius: 18px !important;
+      border: 1px solid #8eb6ff !important;
   }
   .chat-window.is-hidden { 
-      transform: translateY(30px) !important;
+      transform: translateY(16px) !important;
   }
   .launcher { 
       top: auto !important; 
-      bottom: 20px !important; 
-      right: 20px !important; 
+      bottom: max(16px, env(safe-area-inset-bottom)) !important;
+      right: 16px !important;
       transform: translateY(0) !important; 
-      width: 55px !important; 
-      height: 55px !important; 
+      width: 52px !important;
+      height: 52px !important;
   }
   .launcher:hover { transform: scale(1.05) !important; }
-  .chat-header { min-height: 130px !important; }
-  .school-logo { width: 50px !important; height: 50px !important; flex-basis: 50px !important; }
-  .brand-title { font-size: 16px !important; }
-  .brand-subtitle { font-size: 14px !important; }
+  .launcher::after { display: none !important; }
+  .chat-header { min-height: 112px !important; }
+  .header-content { gap: 10px !important; padding: 14px 12px !important; }
+  .school-logo { width: 44px !important; height: 44px !important; flex-basis: 44px !important; }
+  .brand-title { font-size: 15px !important; }
+  .brand-subtitle { font-size: 13px !important; }
+  .brand-status { font-size: 10px !important; }
   .quick-actions { padding-left: 0 !important; }
+}
+
+@media (max-width: 900px) and (max-height: 480px) {
+  .chat-window {
+      height: calc(100dvh - 96px - env(safe-area-inset-bottom)) !important;
+      max-height: calc(100dvh - 96px - env(safe-area-inset-bottom)) !important;
+      min-height: min(220px, calc(100dvh - 96px - env(safe-area-inset-bottom))) !important;
+      bottom: calc(72px + env(safe-area-inset-bottom)) !important;
+  }
 }
