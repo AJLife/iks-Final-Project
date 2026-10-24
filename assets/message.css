@@ -9,17 +9,8 @@ body.message-page {
   background:
     radial-gradient(circle at 82% 28%, rgba(201, 162, 75, 0.2), transparent 18rem),
     linear-gradient(125deg, #0f2540 0%, #1b3a5c 64%, #274b70 100%);
-}
-
-.message-page .message-hero::after {
-  right: 8%;
-  top: 18%;
-  width: 270px;
-  height: 270px;
-  border: 1px solid rgba(228, 200, 122, 0.24);
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(228, 200, 122, 0.1), transparent 68%);
-  box-shadow: 0 0 0 34px rgba(228, 200, 122, 0.035), 0 0 0 70px rgba(228, 200, 122, 0.025);
+  background-size: cover;
+  background-position: center 68%;
 }
 
 .message-page .message-hero .container {
@@ -307,13 +298,6 @@ body.message-page {
 @media (max-width: 760px) {
   .message-page .message-hero {
     padding: 54px 0 58px;
-  }
-
-  .message-page .message-hero::after {
-    right: -110px;
-    top: 5%;
-    width: 230px;
-    height: 230px;
   }
 
   .message-section {
