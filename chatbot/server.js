@@ -46,7 +46,7 @@ app.post('/api/chat', async (req, res) => {
     let response;
     for (let attempt = 0; attempt < 3; attempt += 1) {
       response = await fetch(
-        'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent',
+        'https://generativelanguage.googleapis.com/v1beta/models/gemini-3.5-flash-lite:generateContent',
         {
           method: 'POST',
           signal: controller.signal,
