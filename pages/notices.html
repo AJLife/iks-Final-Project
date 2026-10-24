@@ -9,7 +9,18 @@
 <link rel="stylesheet" href="../assets/style.css">
 </head>
 <body>
+ <!--smooth scroll-->
 
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script>
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!reduce) {
+      const lenis = new Lenis({ duration: 1.1, smoothWheel: true });
+      function raf(t) { lenis.raf(t); requestAnimationFrame(raf); }
+      requestAnimationFrame(raf);
+    }
+  </script> 
+  
 <div class="topbar">
   <div class="marquee">
     <div class="marquee-track">
@@ -31,7 +42,7 @@
         <li class="has-dropdown">
           <a href="about.html">আমাদের সম্পর্কে <span class="caret">▾</span></a>
           <button class="dd-toggle" aria-label="সাবমেনু খুলুন"><span class="caret">▾</span></button>
-          <div class="dropdown-panel">
+          <div class="dropdown-panel" data-lenis-prevent>
             <a href="about.html#history"><span class="dd-ic">📖</span> আমাদের পরিচিতি ও ইতিহাস</a>
             <a href="about.html#board"><span class="dd-ic">🏛️</span> স্কুল পরিচালনা পর্ষদ</a>
             <a href="about.html#shareholders"><span class="dd-ic">🤝</span> সম্মানিত বিনিয়োগকারীগণ</a>

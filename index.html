@@ -16,6 +16,17 @@
 </head>
 
 <body>
+  <!--smooth scroll-->
+
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script>
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!reduce) {
+      const lenis = new Lenis({ duration: 1.1, smoothWheel: true });
+      function raf(t) { lenis.raf(t); requestAnimationFrame(raf); }
+      requestAnimationFrame(raf);
+    }
+  </script>
 
   <div class="topbar">
     <div class="marquee">
@@ -44,7 +55,7 @@
           <li class="has-dropdown">
             <a href="pages/about.html">আমাদের সম্পর্কে <span class="caret">▾</span></a>
             <button class="dd-toggle" aria-label="সাবমেনু খুলুন"><span class="caret">▾</span></button>
-            <div class="dropdown-panel">
+            <div class="dropdown-panel" data-lenis-prevent>
               <a href="about.html#history"><span class="dd-ic">📖</span> আমাদের পরিচিতি ও ইতিহাস</a>
               <a href="about.html#board"><span class="dd-ic">🏛️</span> স্কুল পরিচালনা পর্ষদ</a>
               <a href="about.html#shareholders"><span class="dd-ic">🤝</span> সম্মানিত বিনিয়োগকারীগণ</a>
@@ -108,7 +119,7 @@
         <!-- Chairman -->
         <div class="leader-card-demo">
           <div class="leader-photo-demo">
-            <img src="assets/img/chairman.jfif" alt="আলী মুর্শেদ কাজেম" style="width:100%; height:100%; object-fit:cover; border-radius:50%;">
+            <img src="assets/img/ksu.jpeg" alt="আলী মুর্শেদ কাজেম" style="width:100%; height:100%; object-fit:cover; border-radius:50%;">
           </div>
           <div class="name-badge">সভাপতি</div>
           <h3>আলী মুর্শেদ কাজেম</h3>
@@ -125,7 +136,7 @@
   </section>
 
   <!-- KEY FEATURES -->
-  <section>
+  <section id="home-key-features">
     <div class="container">
       <div class="section-head reveal center" style="margin-left:auto; margin-right:auto; text-align:center;">
         <div class="kicker" style="justify-content:center;">কেন আমরা আলাদা.!</div>
@@ -243,7 +254,7 @@
   </section>
 
   <!-- TESTIMONIALS -->
-  <section>
+  <section id="home-testimonials">
     <div class="container">
       <div class="section-head reveal center" style="margin-left:auto; margin-right:auto; text-align:center;">
         <div class="kicker" style="justify-content:center;">মতামত</div>
@@ -293,20 +304,49 @@
   </section>
 
   <!-- GALLERY PREVIEW -->
-  <section class="section-alt">
+  <section class="section-navy home-gallery-showcase">
     <div class="container">
       <div class="section-head reveal">
         <div class="kicker">মুহূর্তসমূহ</div>
-        <h2>গ্যালারি</h2>
+        <h2>ফটো গ্যালারি</h2>
         <p>ক্যাম্পাস, ক্লাসরুম ও বিভিন্ন অনুষ্ঠানের কিছু বাছাই করা ছবি।</p>
       </div>
-      <div class="gallery-preview-grid reveal">
-        <div class="gp-item"><img src="assets/img/1.jpg" alt="ক্লাসরুম কার্যক্রম"></div>
-        <div class="gp-item"><img src="assets/img/2.jpg" alt="বার্ষিক পুরস্কার বিতরণী"></div>
-        <div class="gp-item"><img src="assets/img/3.jpg" alt="ক্রীড়া প্রতিযোগিতা"></div>
-        <div class="gp-item"><img src="assets/img/4.jpg" alt="খেলার মাঠ"></div>
-        <div class="gp-item"><img src="assets/img/5.jpg" alt="সাংস্কৃতিক অনুষ্ঠান"></div>
-        <div class="gp-item"><img src="assets/img/6.jpg" alt="বিজ্ঞানাগার"></div>
+      <div class="gallery-carousel reveal" data-gallery-carousel role="region" aria-roledescription="carousel" aria-label="স্কুলের ছবির গ্যালারি">
+        <div class="gallery-carousel-stage">
+          <article class="gp-item" role="group" aria-roledescription="slide" aria-label="১ / ৬">
+            <img src="assets/img/7.jpg" alt="ক্লাসরুম কার্যক্রম" loading="lazy">
+            <div class="gp-caption">ক্লাসরুম কার্যক্রম</div>
+          </article>
+          <article class="gp-item" role="group" aria-roledescription="slide" aria-label="২ / ৬" aria-hidden="true">
+            <img src="assets/img/2.jpg" alt="বার্ষিক পুরস্কার বিতরণী" loading="lazy">
+            <div class="gp-caption">বার্ষিক পুরস্কার বিতরণী</div>
+          </article>
+          <article class="gp-item" role="group" aria-roledescription="slide" aria-label="৩ / ৬" aria-hidden="true">
+            <img src="assets/img/3.jpg" alt="ক্রীড়া প্রতিযোগিতা" loading="lazy">
+            <div class="gp-caption">ক্রীড়া প্রতিযোগিতা</div>
+          </article>
+          <article class="gp-item" role="group" aria-roledescription="slide" aria-label="৪ / ৬" aria-hidden="true">
+            <img src="assets/img/4.jpg" alt="খেলার মাঠ" loading="lazy">
+            <div class="gp-caption">খেলার মাঠ</div>
+          </article>
+          <article class="gp-item" role="group" aria-roledescription="slide" aria-label="৫ / ৬" aria-hidden="true">
+            <img src="assets/img/5.jpg" alt="সাংস্কৃতিক অনুষ্ঠান" loading="lazy">
+            <div class="gp-caption">সাংস্কৃতিক অনুষ্ঠান</div>
+          </article>
+          <article class="gp-item" role="group" aria-roledescription="slide" aria-label="৬ / ৬" aria-hidden="true">
+            <img src="assets/img/6.jpg" alt="বিজ্ঞানাগার" loading="lazy">
+            <div class="gp-caption">বিজ্ঞানাগার</div>
+          </article>
+        </div>
+        <button class="gallery-carousel-arrow next" type="button" aria-label="পরের ছবি">›</button>
+        <div class="gallery-carousel-dots" aria-label="ছবি নির্বাচন">
+          <button class="gallery-carousel-dot" type="button" aria-label="ছবি ১" aria-current="true"></button>
+          <button class="gallery-carousel-dot" type="button" aria-label="ছবি ২"></button>
+          <button class="gallery-carousel-dot" type="button" aria-label="ছবি ৩"></button>
+          <button class="gallery-carousel-dot" type="button" aria-label="ছবি ৪"></button>
+          <button class="gallery-carousel-dot" type="button" aria-label="ছবি ৫"></button>
+          <button class="gallery-carousel-dot" type="button" aria-label="ছবি ৬"></button>
+        </div>
       </div>
       <div class="center mt-40 reveal">
         <a href="pages/gallery.html" class="btn btn-navy">সম্পূর্ণ গ্যালারি দেখুন</a>
@@ -315,7 +355,7 @@
   </section>
 
   <!-- PROGRAMS -->
-  <section>
+  <section id="home-programs">
     <div class="container">
       <div class="section-head reveal">
         <div class="kicker">শিক্ষাক্রম</div>
@@ -349,7 +389,7 @@
   </div>
 
   <!-- ABOUT SNAPSHOT -->
-  <section class="section-navy">
+  <section class="section-navy" id="home-about-snapshot">
     <div class="container">
       <div class="section-head reveal">
         <div class="kicker">আমাদের পরিচয়</div>

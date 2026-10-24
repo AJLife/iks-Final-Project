@@ -42,6 +42,17 @@
 </style>
 </head>
 <body>
+ <!--smooth scroll-->
+
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script>
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!reduce) {
+      const lenis = new Lenis({ duration: 1.1, smoothWheel: true });
+      function raf(t) { lenis.raf(t); requestAnimationFrame(raf); }
+      requestAnimationFrame(raf);
+    }
+  </script>
 
 <div class="topbar">
   <div class="marquee">
@@ -64,7 +75,7 @@
         <li class="has-dropdown">
           <a href="about.html">আমাদের সম্পর্কে <span class="caret">▾</span></a>
           <button class="dd-toggle" aria-label="সাবমেনু খুলুন"><span class="caret">▾</span></button>
-          <div class="dropdown-panel">
+          <div class="dropdown-panel" data-lenis-prevent>
             <a href="about.html#history"><span class="dd-ic">📖</span> আমাদের পরিচিতি ও ইতিহাস</a>
             <a href="about.html#board"><span class="dd-ic">🏛️</span> স্কুল পরিচালনা পর্ষদ</a>
             <a href="about.html#shareholders"><span class="dd-ic">🤝</span> সম্মানিত বিনিয়োগকারীগণ</a>
@@ -139,32 +150,31 @@
       <p>স্কুলের বিভিন্ন অনুষ্ঠান ও কার্যক্রমের ভিডিও সংকলন।</p>
     </div>
     <div class="video-grid reveal">
-      <div class="video-card">
+      <div class="video-card" tabindex="0">
         <div class="video-thumb"><span class="play">▶</span></div>
         <div class="vcap">বার্ষিক ক্রীড়া প্রতিযোগিতা — হাইলাইটস</div>
       </div>
-      <div class="video-card">
+      <div class="video-card" tabindex="0">
         <div class="video-thumb"><span class="play">▶</span></div>
         <div class="vcap">বার্ষিক পুরস্কার বিতরণী অনুষ্ঠান</div>
       </div>
-      <div class="video-card">
+      <div class="video-card" tabindex="0">
         <div class="video-thumb"><span class="play">▶</span></div>
         <div class="vcap">ক্যাম্পাস পরিচিতি — ইবনে খালদুন স্কুল</div>
       </div>
-      <div class="video-card">
+      <div class="video-card" tabindex="0">
         <div class="video-thumb"><span class="play">▶</span></div>
         <div class="vcap">সাংস্কৃতিক অনুষ্ঠান ২০২৬</div>
       </div>
-      <div class="video-card">
+      <div class="video-card" tabindex="0">
         <div class="video-thumb"><span class="play">▶</span></div>
         <div class="vcap">মিলাদ মাহফিল ও দোয়া অনুষ্ঠান</div>
       </div>
-      <div class="video-card">
+      <div class="video-card" tabindex="0">
         <div class="video-thumb"><span class="play">▶</span></div>
         <div class="vcap">শিক্ষার্থীদের অনুভূতি</div>
       </div>
     </div>
-    <p style="font-size:0.82rem; color:#8A8F99; margin-top:20px;">* প্রকৃত ভিডিও যুক্ত করতে ভিডিও ফাইল বা YouTube এমবেড লিংক দিয়ে থাম্বনেইলগুলো প্রতিস্থাপন করুন।</p>
   </div>
 </section>
 

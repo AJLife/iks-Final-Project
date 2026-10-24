@@ -11,6 +11,17 @@
 </head>
 
 <body>
+ <!--smooth scroll-->
+
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
+  <script>
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!reduce) {
+      const lenis = new Lenis({ duration: 1.1, smoothWheel: true });
+      function raf(t) { lenis.raf(t); requestAnimationFrame(raf); }
+      requestAnimationFrame(raf);
+    }
+  </script>
 
   <div class="topbar">
     <div class="marquee">
@@ -38,7 +49,7 @@
           <li class="has-dropdown open-page">
             <a href="about.html" class="active">আমাদের সম্পর্কে <span class="caret">▾</span></a>
             <button class="dd-toggle" aria-label="সাবমেনু খুলুন"><span class="caret">▾</span></button>
-            <div class="dropdown-panel">
+            <div class="dropdown-panel" data-lenis-prevent>
               <a href="about.html#history"><span class="dd-ic">📖</span> আমাদের পরিচিতি ও ইতিহাস</a>
               <a href="about.html#board"><span class="dd-ic">🏛️</span> স্কুল পরিচালনা পর্ষদ</a>
               <a href="about.html#shareholders"><span class="dd-ic">🤝</span> সম্মানিত বিনিয়োগকারীগণ</a>
@@ -108,7 +119,7 @@
   </section>
 
   <!-- 2. লক্ষ্য ও উদ্দেশ্য -->
-  <section>
+  <section class="section-navy" id="school-values">
     <div class="container">
       <div class="section-head reveal">
         <div class="kicker">অঙ্গীকার</div>
@@ -552,66 +563,26 @@
           </a>
         </div>
 
-        <!-- Right Side: 4 Cards (শুধুমাত্র পিসিতে দেখাবে, মোবাইলে হাইড থাকবে) -->
+        <!-- Three-photo collage (শুধুমাত্র পিসিতে দেখাবে, মোবাইলে হাইড থাকবে) -->
         <div class="iks-right-cards iks-hide-on-mobile">
-          
           <div class="iks-card">
             <div class="iks-card-img-wrap">
-              <img src="assets/img/t1.jpeg" alt="মোহাম্মদ কাইসার উদ্দীন">
-              <div class="iks-badge">🎓 প্রধান শিক্ষক</div>
-            </div>
-            <div class="iks-card-info">
-              <div class="iks-card-text">
-                <h3>মোহাম্মদ কাইসার উদ্দীন</h3>
-                <p>প্রধান শিক্ষক (ভারপ্রাপ্ত)</p>
-              </div>
-              <a href="#" class="iks-arrow-btn">→</a>
+              <img src="../assets/img/t1.jpeg" alt="মোহাম্মদ কাইসার উদ্দীন">
             </div>
           </div>
 
           <div class="iks-card">
             <div class="iks-card-img-wrap">
-              <img src="assets/img/ishita-ict.jpeg" alt="সায়মা আক্তার">
-              <div class="iks-badge">📖 সহকারী প্রধান শিক্ষক</div>
-            </div>
-            <div class="iks-card-info">
-              <div class="iks-card-text">
-                <h3>সায়মা আক্তার</h3>
-                <p>বাংলা বিভাগ</p>
-              </div>
-              <a href="#" class="iks-arrow-btn">→</a>
+              <img src="../assets/img/ishita-ict.jpeg" alt="সায়মা আক্তার">
             </div>
           </div>
 
           <div class="iks-card">
             <div class="iks-card-img-wrap">
-              <img src="assets/img/makin.jpg" alt="মোঃ জাহিদুল ইসলাম">
-              <div class="iks-badge">⚙️ কর্মকর্তা</div>
-            </div>
-            <div class="iks-card-info">
-              <div class="iks-card-text">
-                <h3>মোঃ জাহিদুল ইসলাম</h3>
-                <p>প্রশাসন বিভাগ</p>
-              </div>
-              <a href="#" class="iks-arrow-btn">→</a>
+              <img src="../assets/img/makin.jpg" alt="মোঃ জাহিদুল ইসলাম">
             </div>
           </div>
-
-          <div class="iks-card">
-            <div class="iks-card-img-wrap">
-              <img src="assets/img/t1.jpeg" alt="আব্দুল হালিম">
-              <div class="iks-badge">👤 সহায়ক কর্মী</div>
-            </div>
-            <div class="iks-card-info">
-              <div class="iks-card-text">
-                <h3>আব্দুল হালিম</h3>
-                <p>কারিগরি সহায়তা</p>
-              </div>
-              <a href="#" class="iks-arrow-btn">→</a>
-            </div>
-          </div>
-
-        </div> <!-- End Cards -->
+        </div>
         
       </div>
     </div>
