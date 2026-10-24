@@ -39,30 +39,45 @@ app.post('/api/chat', async (req, res) => {
     lastUserMsg = req.body.text;
   }
 
+  const controller = new AbortController();
+  const timeout = setTimeout(() => controller.abort(), 20_000);
+
   try {
-    const response = await fetch(
-      'https://generativelanguage.googleapis.com/v1beta/models/gemini-flash-latest:generateContent',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'x-goog-api-key': apiKey.trim(),
-        },
-        body: JSON.stringify({
-          system_instruction: { parts: [{ text: SYSTEM_INSTRUCTION }] },
-          generationConfig: {
-            maxOutputTokens: 500, // টোকেন বাড়িয়ে দেওয়া হয়েছে যাতে উত্তর মাঝপথে না কাটে
-            temperature: 0.4 // আরও নির্ভুল ও প্রফেশনাল উত্তরের জন্য
+    let response;
+    for (let attempt = 0; attempt < 3; attempt += 1) {
+      response = await fetch(
+        'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-lite:generateContent',
+        {
+          method: 'POST',
+          signal: controller.signal,
+          headers: {
+            'Content-Type': 'application/json',
+            'x-goog-api-key': apiKey.trim(),
           },
-          contents: [{ role: 'user', parts: [{ text: lastUserMsg }] }],
-        }),
-      }
-    );
+          body: JSON.stringify({
+            system_instruction: { parts: [{ text: SYSTEM_INSTRUCTION }] },
+            generationConfig: {
+              maxOutputTokens: 500,
+              temperature: 0.4
+            },
+            contents: [{ role: 'user', parts: [{ text: lastUserMsg }] }],
+          }),
+        }
+      );
+
+      if (![429, 503].includes(response.status) || attempt === 2) break;
+      await new Promise(resolve => setTimeout(resolve, 500 * (attempt + 1)));
+    }
 
     const data = await response.json();
 
     if (!response.ok) {
       console.error('API Error details:', data);
+      if ([429, 503].includes(response.status)) {
+        return res.status(response.status).json({
+          error: 'এআই সহকারী এখন ব্যস্ত আছে। অনুগ্রহ করে কিছুক্ষণ পর আবার চেষ্টা করুন।'
+        });
+      }
       return res.status(response.status).json({
         error: data.error?.message || 'API Error'
       });
@@ -72,7 +87,13 @@ app.post('/api/chat', async (req, res) => {
     res.json({ reply });
   } catch (error) {
     console.error('Server Error:', error);
-    res.status(500).json({ error: 'সার্ভারে সংযোগ সমস্যা হয়েছে। আবার চেষ্টা করুন।' });
+    const status = controller.signal.aborted ? 504 : 500;
+    const message = controller.signal.aborted
+      ? 'উত্তর পেতে বেশি সময় লাগছে। অনুগ্রহ করে আবার চেষ্টা করুন।'
+      : 'সার্ভারে সংযোগ সমস্যা হয়েছে। আবার চেষ্টা করুন।';
+    res.status(status).json({ error: message });
+  } finally {
+    clearTimeout(timeout);
   }
 });
 
