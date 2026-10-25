@@ -1,7 +1,7 @@
 /* ===========================================================
    Ibn Khaldun School, Banshkhali — Design System
    Palette: Navy (#1B3A5C), Ink (#161B22), Gold (#C9A24B),
-            Paper (#F7F5F0), Paper-dim (#EFEBE1), Green-accent (#3E6B4F)
+            Paper (#F2FCFA), Paper-dim (#EFEBE1), Green-accent (#3E6B4F)
    Type: Tiro Bangla / Lora (display), Hind Siliguri / Inter (body)
 =========================================================== */
 
@@ -14,7 +14,7 @@
   --ink: #161B22;
   --gold: #C9A24B;
   --gold-light: #E4C87A;
-  --paper: #F7F5F0;
+  --paper: #F2FCFA;
   --paper-dim: #EFEBE1;
   --paper-line: #DCD5C4;
   --green: #3E6B4F;
@@ -567,14 +567,11 @@ section {
 }
 
 .section-alt {
-  background: var(--paper-dim);
+  background: linear-gradient(135deg, #fff8e6 0%, #fafafa 45%, #fdeef0 100%);
 }
 
 #message {
-  background:
-    radial-gradient(ellipse at 4% 82%, rgba(255, 224, 132, 0.28), transparent 38%),
-    radial-gradient(ellipse at 96% 16%, rgba(248, 205, 220, 0.3), transparent 42%),
-    linear-gradient(125deg, #fffdf7 0%, #f8fbfd 52%, #fff8fb 100%);
+  background: var(--paper);
 }
 
 .section-navy {
@@ -591,8 +588,51 @@ section {
 }
 
 .section-head {
+  position: relative;
+  isolation: isolate;
+  width: fit-content;
   max-width: 640px;
-  margin-bottom: 48px;
+  margin: 0 auto 48px;
+  padding: 24px clamp(20px, 4vw, 36px);
+  border: 1px solid rgba(42, 74, 110, 0.18);
+  border-radius: 16px;
+  background: transparent;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.section-head::before {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  inset: 0;
+  padding: 1px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from var(--card-border-angle),
+    #e4c87a,
+    #fff2bd 12%,
+    #6bb7ff 25%,
+    #bc83ff 39%,
+    #f27eb2 52%,
+    #e4c87a 68%,
+    #fff2bd 82%,
+    #6bb7ff
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+  animation: cardBorderOrbit 4s linear infinite;
+}
+
+.section-head > * {
+  position: relative;
+  z-index: 1;
 }
 
 .section-head .kicker {
@@ -614,14 +654,6 @@ section {
   background: var(--green);
 }
 
-.section-navy .section-head .kicker {
-  color: var(--gold-light);
-}
-
-.section-navy .section-head .kicker::before {
-  background: var(--gold-light);
-}
-
 .section-head h2 {
   font-size: clamp(1.6rem, 3vw, 2.3rem);
 }
@@ -634,6 +666,18 @@ section {
 
 .section-navy .section-head p {
   color: #C6CDD8;
+}
+
+.section-navy .section-head h2 {
+  color: var(--white);
+}
+
+.section-navy .section-head .kicker {
+  color: var(--gold-light);
+}
+
+.section-navy .section-head .kicker::before {
+  background: var(--gold-light);
 }
 
 /* ---------- Cards: programs ---------- */
@@ -1305,6 +1349,18 @@ section {
 
 .contact-grid > * {
   min-width: 0;
+}
+
+.contact-grid .form-card,
+.contact-grid .contact-side {
+  transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+}
+
+.contact-grid .form-card:hover,
+.contact-grid .contact-side:hover {
+  transform: translateY(-4px);
+  border-color: rgba(201, 162, 75, 0.65);
+  box-shadow: 0 14px 34px rgba(15, 37, 64, 0.16);
 }
 
 @media (max-width:900px) {
@@ -2204,7 +2260,8 @@ li.has-dropdown:hover>a .caret {
   color: var(--navy);
 }
 
-/* ---------- Leader message cards (homepage) ---------- */
+/* ---------- Leader message cards (homepage) ---------- */ 
+
 .leader-msg-wrapper {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -2458,6 +2515,10 @@ li.has-dropdown:hover>a .caret {
     animation: none;
   }
 }
+#home-key-features{
+  position: relative;
+  top: -40px;
+}
 
 .feature-row {
   display: grid;
@@ -2646,6 +2707,14 @@ li.has-dropdown:hover>a .caret {
   gap: 0;
   height: 340px;
   overflow-y: auto;
+  overscroll-behavior-y: contain;
+}
+
+@media (max-width:860px) {
+  .news-grid {
+    height: auto;
+    overflow-y: visible;
+  }
 }
 
 .news-item {
@@ -2854,7 +2923,7 @@ li.has-dropdown:hover>a .caret {
 
 .gallery-carousel-stage {
   position: relative;
-  height: clamp(310px, 38vw, 440px);
+  height: clamp(250px, 34vw, 380px);
   perspective: 1400px;
   isolation: isolate;
 }
@@ -2863,8 +2932,8 @@ li.has-dropdown:hover>a .caret {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: min(46%, 490px);
-  height: 100%;
+  width: min(60%, 700px);
+  aspect-ratio: 16 / 9;
   padding: 10px;
   overflow: hidden;
   border: 1px solid rgba(228, 200, 122, 0.72);
@@ -2976,11 +3045,11 @@ li.has-dropdown:hover>a .caret {
 
 @media (max-width:700px) {
   .gallery-carousel-stage {
-    height: clamp(260px, 70vw, 350px);
+    height: clamp(220px, 68vw, 320px);
   }
 
   .gp-item {
-    width: 76%;
+    width: 92%;
     padding: 7px;
     border-radius: 14px;
   }
@@ -3907,4 +3976,81 @@ html.lenis, html.lenis body { height: auto; }
   .section-head .kicker {
     justify-content: center;
   }
+}
+
+/* ---------- কিছু কমন কালার ---------- */
+
+.leader-section {
+  background-color: #F2FCFA;
+}
+#commndesign1{
+  color: #ff0000;
+} 
+
+.commndesign2{
+  background: linear-gradient(135deg, #E6F5F7 0%, #DDF4E8 50%, #F4F9F8 100%);
+}
+.commndesign4{
+  background: linear-gradient(135deg, #fff8e6 0%, #fafafa 45%, #fdeef0 100%);
+}
+.commndesign3{
+  background-color: #E6F2F8;
+}
+.commndesign5{
+   background-color: #F2FCFA;
+}.contact-grid .info-item h4 {
+  color: #0f2a4a;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.contact-grid .info-item p,
+.contact-grid .info-item a {
+  color: #333;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.contact-grid .info-item a:hover {
+  color: #c9a227;
+  text-decoration: underline;
+}
+
+
+.contact-side {
+  background: #fff;
+  border: 1px solid #e3e8ef;
+  border-radius: 12px;
+  padding: 20px;
+  box-sizing: border-box;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+}
+
+.contact-side .info-item h4 {
+  color: #0f2a4a;
+}
+
+.contact-side .info-item p,
+.contact-side .info-item a {
+  color: #333;
+  text-decoration: none;
+}
+
+.contact-side .map-embed {
+  flex: 1;
+  min-height: 220px;
+  margin-top: 16px;
+  border: 1px solid #e3e8ef;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.contact-side .map-embed iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: 220px;
+  border: 0;
 }

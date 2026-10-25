@@ -1,7 +1,5 @@
 body.message-page {
-  background:
-    radial-gradient(ellipse at 8% 35%, rgba(201, 162, 75, 0.08), transparent 30rem),
-    var(--paper);
+  background-color: #F2FCFA;
 }
 
 .message-page .message-hero {
