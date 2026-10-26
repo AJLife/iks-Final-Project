@@ -552,3 +552,19 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 });
+
+
+(function () {
+  if (!('IntersectionObserver' in window)) return;
+  const io = new IntersectionObserver(es => es.forEach(e =>
+    e.target.classList.toggle('anim-off', !e.isIntersecting)), { rootMargin: '100px' });
+  document.querySelectorAll('.section-head,.card,.leader-card-demo,.leader-photo-demo,.staff-card,.sh-card,.video-card,.iks-card')
+    .forEach(el => io.observe(el));
+})();
+(function () {
+  if (!('IntersectionObserver' in window)) return;
+  const io = new IntersectionObserver(es => es.forEach(e =>
+    e.target.classList.toggle('anim-off', !e.isIntersecting)), { rootMargin: '100px' });
+  document.querySelectorAll('.section-head,.card,.leader-card-demo,.leader-photo-demo,.staff-card,.sh-card,.video-card,.iks-card')
+    .forEach(el => io.observe(el));
+})();
