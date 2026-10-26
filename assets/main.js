@@ -491,23 +491,26 @@ document.addEventListener('DOMContentLoaded', () => {
   if (galleryCarousel) {
     const gallerySlides = Array.from(galleryCarousel.querySelectorAll('.gp-item'));
     const galleryDots = Array.from(galleryCarousel.querySelectorAll('.gallery-carousel-dot'));
+    const previousButton = galleryCarousel.querySelector('.gallery-carousel-arrow.prev');
     const nextButton = galleryCarousel.querySelector('.gallery-carousel-arrow.next');
-    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const mobileGallery = window.matchMedia('(max-width: 700px)');
     let galleryIndex = 0;
     let galleryTimer = null;
+    let pointerStartX = null;
 
     const showGallerySlide = (index) => {
-      galleryIndex = Math.max(0, Math.min(index, gallerySlides.length - 1));
-      const previousIndex = galleryIndex - 1;
-      const nextIndex = galleryIndex + 1;
+      galleryIndex = (index + gallerySlides.length) % gallerySlides.length;
 
       gallerySlides.forEach((slide, slideIndex) => {
-        slide.classList.toggle('gp-active', slideIndex === galleryIndex);
-        slide.classList.toggle('gp-prev', slideIndex === previousIndex);
-        slide.classList.toggle('gp-next', slideIndex === nextIndex);
-        slide.setAttribute('aria-hidden', String(slideIndex !== galleryIndex));
+        let position = slideIndex - galleryIndex;
+        if (position > gallerySlides.length / 2) position -= gallerySlides.length;
+        if (position < -gallerySlides.length / 2) position += gallerySlides.length;
+        const maxVisiblePosition = mobileGallery.matches ? 1 : 2;
+        const visiblePosition = Math.abs(position) <= maxVisiblePosition && Math.abs(position) !== gallerySlides.length / 2;
+        slide.dataset.pos = visiblePosition ? String(position) : 'hidden';
+        slide.setAttribute('aria-hidden', String(!visiblePosition));
       });
-      if (nextButton) nextButton.disabled = galleryIndex === gallerySlides.length - 1;
       galleryDots.forEach((dot, dotIndex) => {
         if (dotIndex === galleryIndex) dot.setAttribute('aria-current', 'true');
         else dot.removeAttribute('aria-current');
@@ -520,23 +523,26 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     const startGalleryAutoplay = () => {
       stopGalleryAutoplay();
-      if (reducedMotion || document.hidden || gallerySlides.length < 2 || galleryIndex === gallerySlides.length - 1) return;
+      if (reducedMotion.matches || document.hidden || gallerySlides.length < 2) return;
       galleryTimer = setInterval(() => {
         showGallerySlide(galleryIndex + 1);
-        if (galleryIndex === gallerySlides.length - 1) stopGalleryAutoplay();
-      }, 2400);
+      }, 3000);
     };
-    const moveGallery = (index) => {
-      if (index <= galleryIndex) return;
-      showGallerySlide(index);
+
+    const moveGallery = (step) => {
+      showGallerySlide(galleryIndex + step);
       startGalleryAutoplay();
     };
 
-    if (gallerySlides.length) {
+    if (gallerySlides.length > 0) {
       showGallerySlide(0);
-      if (nextButton) nextButton.addEventListener('click', () => moveGallery(galleryIndex + 1));
+      if (previousButton) previousButton.addEventListener('click', () => moveGallery(-1));
+      if (nextButton) nextButton.addEventListener('click', () => moveGallery(1));
       galleryDots.forEach((dot, dotIndex) => {
-        dot.addEventListener('click', () => moveGallery(dotIndex));
+        dot.addEventListener('click', () => {
+          showGallerySlide(dotIndex);
+          startGalleryAutoplay();
+        });
       });
       galleryCarousel.addEventListener('mouseenter', stopGalleryAutoplay);
       galleryCarousel.addEventListener('mouseleave', startGalleryAutoplay);
@@ -548,6 +554,25 @@ document.addEventListener('DOMContentLoaded', () => {
         if (document.hidden) stopGalleryAutoplay();
         else startGalleryAutoplay();
       });
+      galleryCarousel.addEventListener('pointerdown', (event) => {
+        if (event.pointerType === 'mouse' && event.button !== 0) return;
+        pointerStartX = event.clientX;
+      });
+      galleryCarousel.addEventListener('pointerup', (event) => {
+        if (pointerStartX === null) return;
+        const distance = event.clientX - pointerStartX;
+        pointerStartX = null;
+        if (Math.abs(distance) < 50) return;
+        moveGallery(distance < 0 ? 1 : -1);
+      });
+      galleryCarousel.addEventListener('pointercancel', () => {
+        pointerStartX = null;
+      });
+      reducedMotion.addEventListener('change', () => {
+        if (reducedMotion.matches) stopGalleryAutoplay();
+        else startGalleryAutoplay();
+      });
+      mobileGallery.addEventListener('change', () => showGallerySlide(galleryIndex));
       startGalleryAutoplay();
     }
   }
