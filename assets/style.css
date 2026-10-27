@@ -569,6 +569,101 @@ section {
   background: var(--paper);
 }
 
+#message .leader-msg {
+  display: grid;
+  grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
+  align-items: center;
+  gap: 30px;
+  padding: clamp(22px, 4vw, 40px);
+  border: 1px solid #dfe5e9;
+  border-radius: 16px;
+  background: var(--white);
+  box-shadow: 0 8px 24px rgba(15, 37, 64, 0.06);
+  transition: border-color .25s ease, box-shadow .25s ease;
+}
+
+#message .leader-msg:hover {
+  border-color: var(--gold);
+  box-shadow: 0 14px 32px rgba(15, 37, 64, 0.1);
+}
+
+#message .leader-photo-wrap {
+  grid-column: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  text-align: center;
+}
+
+#message .leader-msg > div:not(.leader-photo-wrap) {
+  grid-column: 2;
+}
+
+#message .leader-msg.reverse .leader-photo-wrap {
+  grid-column: 2;
+}
+
+#message .leader-msg.reverse > div:not(.leader-photo-wrap) {
+  grid-column: 1;
+}
+
+#message .leader-role {
+  color: var(--green);
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+#message .leader-name {
+  color: var(--navy-dark);
+  font-family: 'Tiro Bangla', serif;
+  font-size: 1.15rem;
+}
+
+#message .leader-school {
+  color: #78808b;
+  font-size: 0.9rem;
+}
+
+#message .leader-photo {
+  width: 112px;
+  height: 112px;
+  padding: 4px;
+  box-sizing: border-box;
+  flex: 0 0 112px;
+  overflow: hidden;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #173b60 0 48%, #c9a24b 48% 100%);
+  box-shadow: 0 3px 10px rgba(15, 37, 64, 0.16);
+}
+
+#message .leader-photo img {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  display: block;
+  border: 3px solid var(--white);
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: 50% 18%;
+}
+
+@media (max-width: 760px) {
+  #message .leader-msg {
+    grid-template-columns: 1fr;
+  }
+
+  #message .leader-photo-wrap,
+  #message .leader-msg.reverse .leader-photo-wrap {
+    grid-column: 1;
+  }
+
+  #message .leader-msg > div:not(.leader-photo-wrap),
+  #message .leader-msg.reverse > div:not(.leader-photo-wrap) {
+    grid-column: 1;
+  }
+}
+
 .section-navy {
   background:
     radial-gradient(ellipse at 72% 42%, rgba(20, 111, 105, 0.34), transparent 42%),
@@ -2271,12 +2366,19 @@ li.has-dropdown:hover>a .caret {
 
 .leader-card-demo {
   background: var(--white);
+  border: 1px solid #dfe5e9;
   border-radius: 12px;
   padding: 80px 30px 40px;
   text-align: center;
   position: relative;
   box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
   margin-top: 50px;
+  transition: border-color .25s ease, box-shadow .25s ease;
+}
+
+.leader-card-demo:hover {
+  border-color: var(--gold);
+  box-shadow: 0 14px 38px rgba(15, 37, 64, 0.12);
 }
 
 .leader-card-demo .leader-photo-demo {
@@ -2286,12 +2388,11 @@ li.has-dropdown:hover>a .caret {
   transform: translateX(-50%);
   width: 140px;
   height: 140px;
-  border-radius: 10px;
+  border-radius: 50%;
   overflow: hidden;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 0 1px #173b60, 0 0 0 4px var(--gold), 0 8px 20px rgba(0, 0, 0, 0.12);
   background: var(--paper-dim);
   border: 8px solid var(--white);
-  outline: 3px solid var(--gold);
   transition: transform .35s ease, box-shadow .35s ease;
 }
 
@@ -2351,7 +2452,7 @@ li.has-dropdown:hover>a .caret {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 0 !important;
+  border-radius: 50%;
 }
 
 .leader-card-demo .leader-photo-demo span {
