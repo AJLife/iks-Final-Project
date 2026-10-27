@@ -5,7 +5,7 @@ body.message-page {
 .message-page .message-hero {
   padding: 70px 0 74px;
   background:
-    radial-gradient(circle at 82% 28%, rgba(201, 162, 75, 0.2), transparent 18rem),
+    radial-gradient(circle at 82% 28%, rgba(199, 158, 74, 0.2), transparent 18rem),
     linear-gradient(125deg, #0f2540 0%, #1b3a5c 64%, #274b70 100%);
   background-size: cover;
   background-position: center 68%;
@@ -48,7 +48,7 @@ body.message-page {
   gap: 12px;
   margin-top: 25px;
   padding: 10px 18px;
-  border: 1px solid rgba(228, 200, 122, 0.55);
+  border: 1px solid rgba(231, 210, 160, 0.55);
   border-radius: 999px;
   color: var(--gold-light);
   font-weight: 600;
@@ -137,7 +137,7 @@ body.message-page {
   justify-content: center;
   padding: 42px 30px;
   background:
-    radial-gradient(circle at 50% 16%, rgba(201, 162, 75, 0.13), transparent 170px),
+    radial-gradient(circle at 50% 16%, rgba(199, 158, 74, 0.13), transparent 170px),
     linear-gradient(160deg, #f8f6f0, #f2efe7);
   text-align: center;
 }
@@ -149,7 +149,7 @@ body.message-page {
   overflow: hidden;
   border: 5px solid #fff;
   border-radius: 88px 88px 24px 24px;
-  outline: 1px solid rgba(201, 162, 75, 0.65);
+  outline: 1px solid rgba(199, 158, 74, 0.65);
   background: #e7e2d8;
   box-shadow: 0 10px 30px rgba(15, 37, 64, 0.14);
 }
@@ -167,7 +167,7 @@ body.message-page {
   display: grid;
   place-items: center;
   background:
-    radial-gradient(circle at 70% 25%, rgba(228, 200, 122, 0.45), transparent 38%),
+    radial-gradient(circle at 70% 25%, rgba(231, 210, 160, 0.45), transparent 38%),
     linear-gradient(145deg, #203f61, #102742);
   color: #f6e7bc;
   font-family: 'Tiro Bangla', serif;
@@ -182,7 +182,7 @@ body.message-page {
   width: 34px;
   height: 34px;
   place-items: center;
-  border: 1px solid rgba(228, 200, 122, 0.6);
+  border: 1px solid rgba(231, 210, 160, 0.6);
   border-radius: 50%;
   color: var(--gold-light);
   font-size: 1rem;
