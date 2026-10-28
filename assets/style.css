@@ -3934,10 +3934,30 @@ button.nav-cta {
 }
 
 .iks-title {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 10px;
   color: #0b2b53;
   font-size: clamp(2rem, 3.5vw, 2.8rem);
   font-weight: 800;
   margin-bottom: 15px;
+}
+
+.iks-title::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  width: 44px;
+  height: 3px;
+  border-radius: 3px;
+  background: linear-gradient(90deg, var(--gold), #6bb7ff, #bc83ff);
+  transform: translateX(-50%);
+  transition: width .25s ease;
+}
+
+#staff-intro .iks-left-content:hover .iks-title::after {
+  width: 84px;
 }
 
 .iks-desc {

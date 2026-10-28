@@ -291,15 +291,24 @@ document.addEventListener('DOMContentLoaded', () => {
     d.textContent = str == null ? '' : str;
     return d.innerHTML;
   };
+  // For values placed inside an HTML attribute (also escapes quotes)
+  const escapeAttr = (str) =>
+    escapeHtml(str).replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+  // Allow only relative links and http(s)/mailto/tel; block javascript: etc.
+  const safeHref = (url) => {
+    const s = String(url == null ? '' : url).trim();
+    if (/^[a-z][a-z0-9+.-]*:/i.test(s) && !/^(https?:|mailto:|tel:)/i.test(s)) return '#';
+    return escapeAttr(s);
+  };
 
   function noticeCardHTML(n, basePath) {
     basePath = basePath || '';
-    const tagCls = n.tag.cls ? ' ' + n.tag.cls : '';
+    const tagCls = n.tag.cls ? ' ' + escapeAttr(n.tag.cls) : '';
     return `
-      <div class="notice-card" data-category="${n.category}">
+      <div class="notice-card" data-category="${escapeAttr(n.category)}">
         <div class="nc-top">
           <span class="tag${tagCls}">${escapeHtml(n.tag.label)}</span>
-          <span class="nc-date">${n.date.d} ${n.date.m}, ${n.date.y}</span>
+          <span class="nc-date">${escapeHtml(n.date.d)} ${escapeHtml(n.date.m)}, ${escapeHtml(n.date.y)}</span>
         </div>
         <h4>${escapeHtml(n.title)}</h4>
         <p>${escapeHtml(n.excerpt)}</p>
@@ -361,7 +370,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <span class="lb-tag">${escapeHtml(n.tag.label)}</span>
         <div>
           <h5>${escapeHtml(n.title)}</h5>
-          <span class="lb-date">${n.date.d} ${n.date.m}, ${n.date.y}</span>
+          <span class="lb-date">${escapeHtml(n.date.d)} ${escapeHtml(n.date.m)}, ${escapeHtml(n.date.y)}</span>
         </div>
       </div>`).join('');
     // duplicate the list once for a seamless CSS scroll loop
@@ -380,15 +389,15 @@ document.addEventListener('DOMContentLoaded', () => {
         case 'p':
           return `<p>${escapeHtml(b.text)}</p>`;
         case 'h':
-          return `<div class="nd-heading"><span class="hi">${b.icon || ''}</span>${escapeHtml(b.text)}</div>`;
+          return `<div class="nd-heading"><span class="hi">${escapeHtml(b.icon || '')}</span>${escapeHtml(b.text)}</div>`;
         case 'list':
           return `<ul class="nd-list">${b.items.map(i => `<li>${escapeHtml(i)}</li>`).join('')}</ul>`;
         case 'note':
-          return `<div class="nd-note ${b.style === 'info' ? 'info' : ''}"><span class="ni">${b.icon || 'ℹ️'}</span><p>${escapeHtml(b.text)}</p></div>`;
+          return `<div class="nd-note ${b.style === 'info' ? 'info' : ''}"><span class="ni">${escapeHtml(b.icon || 'ℹ️')}</span><p>${escapeHtml(b.text)}</p></div>`;
         case 'seats':
           return `<div class="nd-seats">${b.items.map(i => `<div class="nd-seat-item"><span class="dot"></span>${escapeHtml(i.label)} — ${escapeHtml(i.value)}</div>`).join('')}</div>`;
         case 'link':
-          return `<div class="nd-actions"><a href="${b.href}" class="btn btn-primary" style="border:none;">${escapeHtml(b.label)}</a></div>`;
+          return `<div class="nd-actions"><a href="${safeHref(b.href)}" class="btn btn-primary" style="border:none;">${escapeHtml(b.label)}</a></div>`;
         default:
           return '';
       }
