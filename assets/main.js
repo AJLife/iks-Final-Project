@@ -72,6 +72,33 @@ document.addEventListener('DOMContentLoaded', () => {
     window.location.href = `mailto:ibnkhaldunschoolbanshkhali@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(fields)}`;
   }
 
+  // Shown when submission fails (instead of silently opening a mail app)
+  function showFormError(form, subject) {
+    let box = form.querySelector('.form-error');
+    if (!box) {
+      box = document.createElement('div');
+      box.className = 'form-error';
+      box.setAttribute('role', 'alert');
+      box.style.cssText = 'margin-top:14px;padding:12px 14px;border-radius:8px;background:#FDECEA;color:#8A1F17;font-size:0.92rem;line-height:1.7;';
+      form.appendChild(box);
+    }
+    box.textContent = '';
+    box.append('দুঃখিত, ফর্মটি এই মুহূর্তে জমা দেওয়া যায়নি। অনুগ্রহ করে আবার চেষ্টা করুন, অথবা ফোন করুন +৮৮০ ১৬৩২-৪২২৫০৫। ');
+    const a = document.createElement('a');
+    a.href = '#';
+    a.textContent = 'ইমেইলের মাধ্যমে পাঠান';
+    a.style.fontWeight = '600';
+    a.addEventListener('click', (e) => { e.preventDefault(); openEmailDraft(form, subject); });
+    box.appendChild(a);
+    if (['localhost', '127.0.0.1'].includes(window.location.hostname)) {
+      console.warn('Netlify Forms শুধু Netlify-তে ডিপ্লয় করা সাইটে কাজ করে; লোকাল সার্ভারে (Live Server) POST ব্যর্থ হবে।');
+    }
+  }
+  function clearFormError(form) {
+    const old = form.querySelector('.form-error');
+    if (old) old.remove();
+  }
+
   // ---------- Admission form ----------
   const admissionForm = document.getElementById('admissionForm');
   if (admissionForm) {
@@ -81,6 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
         admissionForm.reportValidity();
         return;
       }
+      clearFormError(admissionForm);
       const submitBtn = admissionForm.querySelector('button[type="submit"]');
       if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'পাঠানো হচ্ছে...'; }
       submitToNetlify(admissionForm, () => {
@@ -89,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
         window.scrollTo({ top: document.querySelector('.form-card').offsetTop - 100, behavior: 'smooth' });
       }, () => {
         if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'রেজিস্ট্রেশন জমা দিন'; }
-        openEmailDraft(admissionForm, 'ভর্তি রেজিস্ট্রেশন আবেদন');
+        showFormError(admissionForm, 'ভর্তি রেজিস্ট্রেশন আবেদন');
       });
     });
   }
@@ -103,6 +131,7 @@ document.addEventListener('DOMContentLoaded', () => {
         contactForm.reportValidity();
         return;
       }
+      clearFormError(contactForm);
       const submitBtn = contactForm.querySelector('button[type="submit"]');
       if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'পাঠানো হচ্ছে...'; }
       submitToNetlify(contactForm, () => {
@@ -110,7 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('contactSuccess').style.display = 'block';
       }, () => {
         if (submitBtn) { submitBtn.disabled = false; submitBtn.textContent = 'বার্তা পাঠান'; }
-        openEmailDraft(contactForm, 'ইবনে খালদুন স্কুলে যোগাযোগ');
+        showFormError(contactForm, 'ইবনে খালদুন স্কুলে যোগাযোগ');
       });
     });
   }
