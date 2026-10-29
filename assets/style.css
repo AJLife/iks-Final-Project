@@ -6,14 +6,43 @@
 =========================================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&family=Hind+Siliguri:wght@300;400;500;600;700&family=Lora:ital,wght@0,500;0,600;0,700;1,500&family=Inter:wght@400;500;600;700&display=swap');
+@font-face { font-family: 'SolaimanLipi'; src: url('../assets/font/SolaimanLipi.ttf') format('truetype'); }
+@font-face { font-family: 'Li Anando'; src: url('../assets/font/Li\ Anando.ttf') format('truetype'); }
+@font-face { font-family: 'Li AnandoItalic'; src: url('../assets/font/Li\ AnandoItalic.ttf') format('truetype'); }
+@font-face { font-family: 'Li Ador1'; src: url('../assets/font/LiAdor1.ttf') format('truetype'); }
+@font-face { font-family: 'Li Ador2'; src: url('../assets/font/LiAdor2.ttf') format('truetype'); }
+@font-face { font-family: 'Li Ador3'; src: url('../assets/font/LiAdor3.ttf') format('truetype'); }
+@font-face { font-family: 'Li Ador4'; src: url('../assets/font/LiAdor4.ttf') format('truetype'); }
+@font-face { font-family: 'Li Ador5'; src: url('../assets/font/LiAdor5.ttf') format('truetype'); }
+@font-face { font-family: 'Li Shohid Jabbar'; src: url('../assets/font/LiShohidJabbar.ttf') format('truetype'); }
+@font-face { font-family: 'Li Shohid Jabbar1'; src: url('../assets/font/LiShohidJabbar-Italic.ttf') format('truetype'); }
+@font-face { font-family: 'LiAlinurNakkhatra'; src: url('../assets/font/LiAlinurNakkhatra.ttf') format('truetype'); }
+@font-face { font-family: 'LiAlinurNakkhatra1'; src: url('../assets/font/LiAlinurNakkhatra1.ttf') format('truetype'); }
+@font-face { font-family: 'RuposhiBangla'; src: url('../assets/font/RuposhiBangla.ttf') format('truetype'); }
+@font-face { font-family: 'SohidOsmanHadi'; src: url('../assets/font/SohidOsmanHadi.ttf') format('truetype'); }
+@font-face { font-family: 'Shaheed Shafkat'; src: url('../assets/font/ShaheedShafkat.ttf') format('truetype'); }
+
 
 :root {
   --navy: #1B3A5C;
+  --primary-color: #ff751f;
+  --primary-hover: #e06418;
+  --secondary-color: #2d3748;
+  --light-bg: #f8f9fa;
+  --dark-bg: #1a202c;
+  --white: #ffffff;
+  --border-radius: 16px;
+  --text-dark: #ff0000;
+  --text-light: #718096;
+  --text-muted: #a0aec0;
+  --box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+  --transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   --navy-dark: #0F2540;
   --navy-mid: #2A4A6E;
   --ink: #161B22;
   --gold: #C79E4A;
-  --gold-light: #E7D2A0;
+  --gold-light: #F8711D;
+  --gold-light1: #161B22;
   --paper: #F2FCFA;
   --paper-dim: #EFEBE1;
   --paper-line: #DCD5C4;
@@ -22,6 +51,12 @@
   --shadow: 0 8px 30px rgba(15, 37, 64, 0.10);
   --radius: 4px;
   --max-w: 1160px;
+  --font-body: 'Li Ador5', sans-serif;
+  --font-logo: 'Li Ador2', sans-serif;
+  --font-heading: 'Li Ador5', sans-serif;
+  --font-display: 'Tiro Bangla', serif;
+  --font-hero: 'solaimanLipi', sans-serif;
+  --font-Shaheed-Shafkat: 'Shaheed Shafkat', sans-serif;
 }
 
 * {
@@ -30,20 +65,19 @@
   padding: 0;
 }
 body {
-  font-family: 'Hind Siliguri', 'Inter', sans-serif;
+  font-family: var(--font-body);
   background: var(--paper);
   color: var(--ink);
   line-height: 1.7;
   -webkit-font-smoothing: antialiased;
-}
-
+} 
 h1,
 h2,
 h3,
 h4,
 .serif {
-  font-family: 'Tiro Bangla', 'Lora', serif;
-  font-weight: 600;
+  font-family: var(--font-body);
+  font-weight: 800;
   color: var(--navy-dark);
   line-height: 1.3;
 }
@@ -152,7 +186,7 @@ select:focus-visible {
 
 /* ---------- Header / Nav ---------- */
 header.site-header {
-  background: linear-gradient(110deg, #3b668c 0%, #2d5379 48%, #1b3a5c 100%);
+  background-color: var(--paper);
   position: sticky;
   top: var(--topbar-h, 36px);
   z-index: 100;
@@ -164,32 +198,39 @@ header.site-header {
   align-items: center;
   justify-content: space-between;
   padding: 12px 24px;
+  color: black;
 }
 
 .brand {
   display: flex;
   align-items: center;
-  gap: 12px;
+  gap: 7px;
   color: var(--paper);
 }
 
 .brand img {
-  width: 52px;
-  height: 52px;
+  width: 48px;
+  height: 48px;
 }
 
+.brand .brand-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  line-height: 1.3;
+}
 .brand .brand-text .bn {
-  font-family: 'Tiro Bangla', serif;
-  font-size: 1.28rem;
-  font-weight: 600;
-  color: var(--paper);
+  font-family:  var(--font-logo), serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: #2D3748;
 }
 
 .brand .brand-text .en {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.68rem;
+  font-family:  var(--font-body), serif;
+  font-size: 0.78rem;
   letter-spacing: 2px;
-  color: var(--gold-light);
+  color: #2D3748;
   text-transform: uppercase;
 }
 
@@ -202,16 +243,31 @@ nav.main-nav ul {
 nav.main-nav a {
   display: block;
   padding: 10px 16px;
-  color: var(--paper-dim);
+  color: #2D3748;;
   font-size: 0.96rem;
   border-radius: 2px;
   transition: color .2s, background .2s;
+  border-bottom: 2px solid transparent;
+}
+nav.main-nav a::after {
+  content: '';
+        position: absolute;
+        left: 50%;
+        bottom: -6px;
+        transform: translateX(-50%);
+        height: 2px;
+        width: 0;
+        background: var(--primary-color);
+        border-radius: 1px;
+        transition: width .25s ease;
+        opacity: 0.95;
 }
 
 nav.main-nav a:hover,
 nav.main-nav a.active {
-  color: var(--gold-light);
-  background: rgba(255, 255, 255, 0.06);
+  color: var(--primary-color); /* আপনার থিমের সবুজ রং */
+  background-color: rgba(7, 127, 81, 0.1); /* হালকা সবুজ ব্যাকগ্রাউন্ড */
+  border-bottom: 2px solid var(--primary-color); /* নিচে সবুজ বর্ডার লাইন */
 }
 
 .nav-cta {
@@ -247,8 +303,24 @@ nav.main-nav a.active {
 .hamburger span {
   width: 24px;
   height: 2px;
-  background: var(--paper);
+  background: #2D3748;
   display: block;
+}
+
+/* নরমাল ভিউয়ের জন্য মেনু ডিজাইন */
+nav.main-nav a {
+  color: #2D3748;;
+  text-decoration: none;
+  border-bottom: 2px solid transparent; /* হোভারের জন্য জায়গা রাখা */
+  transition: translateX(-50%);
+  background-color: transparent; /* ব্যাকগ্রাউন্ড থাকবে না */
+}
+/* নরমাল ভিউয়ের হোভার ইফেক্ট */
+nav.main-nav a:hover,
+nav.main-nav a.active {
+  color: var(--primary-color);
+  border-bottom: 3px solid var(--primary-color); /* শুধু নিচের বর্ডার */
+  background-color: transparent !important; /* ব্যাকগ্রাউন্ড সম্পূর্ণ সরাচ্ছে */
 }
 
 @media (max-width: 940px) {
@@ -263,15 +335,24 @@ nav.main-nav a.active {
     inset: 0 auto 0 0;
     width: min(86vw, 320px);
     max-height: 100dvh;
-    background: linear-gradient(160deg, #3b668c 0%, #2d5379 52%, #1b3a5c 100%);
+    background:  var(--paper);
     display: block;
     overflow-y: auto;
     overscroll-behavior: contain;
     transform: translateX(-105%);
     transition: transform .3s ease;
-    box-shadow: 12px 0 28px rgba(0, 0, 0, 0.24);
+    box-shadow: 12px 0 28px rgba(186, 17, 17, 0.24);
     z-index: 120;
   }
+  /* ---------- Mobile Button Full ---------- */
+.hero-ctas a ,
+ .btn-full {
+  display: block !important;
+  width: 100% !important;
+  text-align: center;
+  box-sizing: border-box;
+  margin-bottom: 12px; /* দুটো বাটনের মাঝে গ্যাপ রাখার জন্য */
+}
 
   nav.main-nav.open {
     transform: translateX(0);
@@ -281,6 +362,7 @@ nav.main-nav a.active {
     flex-direction: column;
     align-items: stretch;
     padding: 88px 24px 24px;
+    
   }
 
   nav.main-nav a {
@@ -340,7 +422,7 @@ nav.main-nav a.active {
 /* ---------- Hero ---------- */
 .hero {
   position: relative;
-  background: linear-gradient(160deg, var(--navy) 0%, var(--navy-dark) 100%);
+  background-color: rgb(6, 6, 6);
   color: var(--paper);
   overflow: hidden;
   padding: 88px 0 100px;
@@ -368,7 +450,7 @@ nav.main-nav a.active {
   width: 33.33%;
   height: 100%;
   object-fit: cover;
-  opacity: 0.32;
+  opacity: 0.25;
 }
 
 .hero .pattern {
@@ -392,11 +474,11 @@ nav.main-nav a.active {
   align-items: center;
   gap: 8px;
   color: var(--gold-light);
-  font-size: 0.82rem;
+  font-size: 0.9rem;
   letter-spacing: 2px;
   text-transform: uppercase;
   margin-bottom: 20px;
-  font-family: 'Inter', sans-serif;
+  font-family: var(--font-hero);
 }
 
 .hero .eyebrow::before {
@@ -469,7 +551,6 @@ nav.main-nav a.active {
   0%, 100% { box-shadow: 0 10px 24px rgba(6, 20, 36, 0.34), 0 0 0 0 rgba(231, 210, 160, 0.45); }
   50% { box-shadow: 0 12px 26px rgba(6, 20, 36, 0.38), 0 0 0 10px rgba(231, 210, 160, 0); }
 }
-
 @media (max-width: 640px) {
   .hero {
     padding-bottom: 124px;
@@ -482,19 +563,48 @@ nav.main-nav a.active {
 
 .btn {
   display: inline-block;
-  padding: 13px 28px;
-  border-radius: 3px;
+  padding: 14px 28px;
+  border-radius: 50px;
   font-weight: 600;
   font-size: 0.98rem;
   transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
-  border: 1.5px solid transparent;
+  border: 1.5px solid ;
 }
 
 .btn-primary {
-  background: var(--gold);
-  color: var(--navy-dark);
-}
+  background-color: var(--primary-color) !important;
+} 
+.btn-navy {
+    background: linear-gradient(135deg, #f07e32, #ff0000); /* সুন্দর অরেঞ্জ গ্রেডিয়েন্ট */
+    color: #ffffff;
+    border-radius: 8px; /* হালকা রাউন্ডেড শেপ */
+    cursor: pointer;
+    position: relative;
+    overflow: hidden; /* ভেতরের শাইন ইফেক্ট ধরে রাখার জন্য */
+    box-shadow: 0 4px 15px rgba(240, 126, 50, 0.3); /* হালকা স্বাভাবিক শ্যাডো */
+    z-index: 1;
+  }
+  .btn-special{
+    background: linear-gradient(135deg, #f07e32, #ff5e3a); /* সুন্দর অরেঞ্জ গ্রেডিয়েন্ট */
+    color: #ffffff;
+    padding: 13px 28px;
+    border-radius: 3px;
+    font-weight: 600;
+    font-size: 0.98rem;
+    border-radius: 8px; /* হালকা রাউন্ডেড শেপ */
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    z-index: 1;
 
+  }
+.btn-navy:hover {
+  background: #F6843C;
+  transform: translateY(-5px) scale(1.02); /* বাটনটি হালকা উপরে উঠবে ও বড় হবে */
+  box-shadow: 0 12px 25px rgba(167, 119, 227, 0.6); /* শ্যাডো বাড়বে */
+  box-shadow: 0 4px 15px rgba(240, 126, 50, 0.3); /* হালকা স্বাভাবিক শ্যাডো */
+}
 .btn-primary:hover {
   background: var(--gold-light);
   transform: translateY(-2px);
@@ -512,15 +622,7 @@ nav.main-nav a.active {
   transform: translateY(-2px);
 }
 
-.btn-navy {
-  background: var(--navy);
-  color: var(--paper);
-}
 
-.btn-navy:hover {
-  background: var(--navy-mid);
-  transform: translateY(-2px);
-}
 
 /* stat strip inside hero */
 .hero-stats {
@@ -1566,6 +1668,8 @@ footer {
   gap: 36px;
   padding-bottom: 44px;
 }
+
+
 
 @media (max-width:900px) {
   .footer-grid {

@@ -1,0 +1,190 @@
+/* ===========================================================
+   নোটিশ বোর্ড — নতুন ডিজাইন (তালিকা + বিস্তারিত পেজ)
+   রং বদলাতে শুধু নিচের ৬টি ভ্যারিয়েবল বদলান।
+=========================================================== */
+:root {
+  --sn-navy: #0f2744;          /* শিরোনামের রং */
+  --sn-accent: #F6843C;        /* "বিস্তারিত" বাটনের রং */
+  --sn-accent-dark: #F6843C;   /* বাটনের গাঢ় প্রান্ত */
+  --sn-chip-bg: #dcf5ef;       /* তারিখের ব্যাজের পেছনের রং */
+  --sn-chip-fg: #0b6b5d;       /* তারিখের লেখার রং */
+  --sn-hover-bg: #fffaf0;      /* কার্ডের ওপর মাউস নিলে রং */
+}
+
+/* ---------- নোটিশ তালিকা ---------- */
+#noticeGrid.sn-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 28px;
+  align-items: stretch;
+}
+@media (max-width: 1000px) { #noticeGrid.sn-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 640px)  { #noticeGrid.sn-grid { grid-template-columns: 1fr; gap: 20px; } }
+
+.sn-card {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-radius: 24px;
+  padding: 28px 26px 26px;
+  box-shadow: 0 10px 34px rgba(15, 39, 68, .08);
+  transition: transform .25s ease, box-shadow .25s ease, background .25s ease;
+}
+.sn-card:hover {
+  transform: translateY(-6px);
+  background: var(--sn-hover-bg);
+  box-shadow: 0 18px 44px rgba(15, 39, 68, .14);
+}
+.sn-title {
+  margin: 0 0 14px;
+  font-size: 22px;
+  line-height: 1.35;
+  font-weight: 800;
+  color: var(--sn-navy);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.sn-excerpt {
+  margin: 0;
+  flex: 1;
+  color: #6b7280;
+  font-size: 15.5px;
+  line-height: 1.8;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.sn-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 22px;
+  flex-wrap: wrap;
+}
+.sn-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 26px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--sn-accent), var(--sn-accent-dark));
+  color: #fff;
+  font-weight: 700;
+  font-size: 16px;
+  text-decoration: none;
+  box-shadow: 0 8px 18px rgba(176, 138, 50, .30);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.sn-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 24px rgba(176, 138, 50, .38); }
+.sn-btn svg { width: 18px; height: 18px; flex: none; }
+.sn-date {
+  background: var(--sn-chip-bg);
+  color: var(--sn-chip-fg);
+  font-weight: 700;
+  font-size: 14.5px;
+  padding: 9px 16px;
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.sn-empty { grid-column: 1 / -1; text-align: center; color: #6b7280; padding: 40px 0; }
+
+/* ---------- নোটিশ বিস্তারিত ---------- */
+.sn-detail {
+  max-width: 780px;
+  margin: 0 auto;
+  background: transparent !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  border: 0 !important;
+}
+.sn-detail-head {
+  background: linear-gradient(135deg, #e6f1ff 0%, #def6ee 100%);
+  border-radius: 24px;
+  padding: 32px 34px;
+  box-shadow: 0 10px 34px rgba(15, 39, 68, .07);
+}
+.sn-detail-head h1 {
+  margin: 0 0 16px;
+  font-size: clamp(24px, 3.4vw, 34px);
+  line-height: 1.35;
+  font-weight: 800;
+  color: var(--sn-navy);
+}
+.sn-date-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(255, 255, 255, .75);
+  color: var(--sn-chip-fg);
+  font-weight: 700;
+  font-size: 14px;
+  padding: 7px 14px;
+  border-radius: 999px;
+}
+.sn-date-chip svg { width: 16px; height: 16px; flex: none; }
+
+.sn-detail-body {
+  margin-top: 22px;
+  background: #fff;
+  border-radius: 24px;
+  padding: 32px 34px 36px;
+  box-shadow: 0 10px 34px rgba(15, 39, 68, .07);
+  color: #374151;
+  font-size: 16px;
+  line-height: 1.95;
+}
+.sn-detail-body p { margin: 0 0 16px; }
+.sn-intro {
+  margin: 0 0 24px;
+  padding: 18px 20px;
+  background: #f1f6fd;
+  border-left: 4px solid #3b82f6;
+  border-radius: 0 12px 12px 0;
+  color: #1f3a5f;
+  font-size: 15.5px;
+  line-height: 1.85;
+}
+.sn-h {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 28px 0 10px;
+  font-weight: 800;
+  font-size: 17px;
+  color: var(--sn-navy);
+}
+.sn-list { margin: 0 0 16px; padding-left: 22px; }
+.sn-list li { margin-bottom: 6px; }
+.sn-note {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin: 18px 0;
+  padding: 16px 18px;
+  border-radius: 14px;
+  background: #fff6e0;
+  border: 1px solid #f1d58a;
+  color: #7a5a10;
+}
+.sn-note.info { background: #eaf3ff; border-color: #b9d6fb; color: #1f4b86; }
+.sn-note p { margin: 0; }
+.sn-seats { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 10px; margin: 14px 0 18px; }
+.sn-seat {
+  display: flex; align-items: center; gap: 10px;
+  background: #f6f8fb; border-radius: 12px; padding: 11px 14px; font-weight: 600; font-size: 15px;
+}
+.sn-seat i { width: 9px; height: 9px; border-radius: 50%; background: var(--sn-accent); flex: none; }
+.sn-actions { margin-top: 22px; }
+.sn-actions a {
+  display: inline-block; padding: 13px 26px; border-radius: 999px; font-weight: 700; text-decoration: none; color: #fff;
+  background: linear-gradient(135deg, var(--sn-accent), var(--sn-accent-dark));
+  box-shadow: 0 8px 18px rgba(176, 138, 50, .30);
+}
+@media (max-width: 640px) {
+  .sn-detail-head { padding: 24px 20px; }
+  .sn-detail-body { padding: 24px 20px 28px; }
+}

@@ -13,14 +13,55 @@
  <!--smooth scroll-->
 
   <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.18/dist/lenis.min.js"></script>
-  <script>
-    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (!reduce) {
-      const lenis = new Lenis({ duration: 1.1, smoothWheel: true });
-      function raf(t) { lenis.raf(t); requestAnimationFrame(raf); }
-      requestAnimationFrame(raf);
-    }
-  </script>
+<script>
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var root = document.documentElement;
+
+  // হেডার যতটা জায়গা নেয়, অ্যাঙ্করের ওপরে ততটা ফাঁক রাখা
+  root.style.scrollPaddingTop = '175px';
+  function headerGap() {
+    var head = document.querySelector('.site-header');
+    return head ? Math.round(head.getBoundingClientRect().bottom) : 175;
+  }
+  function applyGap() { root.style.scrollPaddingTop = headerGap() + 'px'; }
+  window.addEventListener('resize', applyGap);
+  function hashTarget() {
+    return location.hash.length > 1
+      ? document.getElementById(decodeURIComponent(location.hash.slice(1))) : null;
+  }
+
+  // অন্য পেজ থেকে #সেকশন লিংকে এলে: ছবি লোড হয়ে লেআউট স্থির না হওয়া পর্যন্ত পেজ দেখানো হবে না,
+  // তারপর সরাসরি সঠিক সেকশনে খুলবে (মাঝখানে টপ দেখা যাবে না)
+  if (location.hash.length > 1) root.style.opacity = '0';
+  function reveal() { root.style.transition = 'opacity .18s'; root.style.opacity = ''; }
+  var revealTimer = setTimeout(reveal, 3000); // কিছু আটকে গেলেও পেজ যেন লুকিয়ে না থাকে
+  window.addEventListener('load', function () {
+    var t = hashTarget();
+    if (t) { applyGap(); t.scrollIntoView(); }
+    requestAnimationFrame(function () {
+      requestAnimationFrame(function () { clearTimeout(revealTimer); reveal(); });
+    });
+  });
+
+  if (!reduce) {
+    const lenis = new Lenis({ duration: 1.1, smoothWheel: true });
+    function raf(t) { lenis.raf(t); requestAnimationFrame(raf); }
+    requestAnimationFrame(raf);
+
+    // একই পেজের #অ্যাঙ্কর লিংকে স্মুথ স্ক্রল
+    document.addEventListener('click', function (e) {
+      var link = e.target.closest('a[href*="#"]');
+      if (!link) return;
+      var url = new URL(link.href, location.href);
+      if (url.pathname !== location.pathname || !url.hash) return;
+      var target = document.getElementById(decodeURIComponent(url.hash.slice(1)));
+      if (!target) return;
+      e.preventDefault();
+      lenis.scrollTo(target.getBoundingClientRect().top + window.scrollY - headerGap());
+      history.pushState(null, '', url.hash);
+    });
+  }
+</script>
 
   <div class="topbar">
     <div class="marquee">
@@ -894,5 +935,4 @@
 <!-- JS ফাইল লিংক -->
 <script src="../chatbot/public/app.js"></script>
 </body>
-
 </html>
