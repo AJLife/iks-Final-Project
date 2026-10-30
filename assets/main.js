@@ -10,6 +10,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const hamburger = document.querySelector('.hamburger');
   const nav = document.querySelector('.main-nav');
+  // মোবাইল স্লাইড মেনুর ওপরে ব্র্যান্ড (লোগো + নাম) বসানো
+  const siteBrand = document.querySelector('.site-header .brand');
+  if (siteBrand && nav && !nav.querySelector('.nav-brand')) {
+    const navBrand = siteBrand.cloneNode(true);
+    navBrand.classList.add('nav-brand');
+    nav.insertBefore(navBrand, nav.firstChild);
+  }
   if (hamburger && nav) {
     hamburger.addEventListener('click', () => {
       nav.classList.toggle('open');
