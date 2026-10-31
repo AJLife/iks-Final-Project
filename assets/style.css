@@ -442,7 +442,7 @@ nav.main-nav .nav-brand { display: none; }
   background-color: rgb(6, 6, 6);
   color: var(--paper);
   overflow: hidden;
-  padding: 30px 0 70px;
+  padding: 90px 0 90px;
 }
 
 .hero::before {
@@ -591,10 +591,11 @@ nav.main-nav .nav-brand { display: none; }
 }
 @media (max-width: 640px) {
   .hero {
-    padding: 0 0;
+    padding: 40px 0;
     
   } .eyebrow{
-  font-size: 0.8rem;
+  font-size: 0.7rem;
+  text-align: center;
 }
   .hero-inner {
     padding: 0 20px;
@@ -682,6 +683,7 @@ nav.main-nav .nav-brand { display: none; }
 .btn-outline {
   border-color: rgba(247, 245, 240, 0.5);
   color: var(--paper);
+  border: 3px solid white;
 }
 
 .btn-outline:hover {
@@ -4625,4 +4627,102 @@ html.lenis, html.lenis body { height: auto; }
 #home-about-snapshot .glow-card.glow-hover > .glow-inner {
   flex: 1;
   width: 100%;
+}
+
+/* ===========================================================
+   মেনু ও সাবমেনু ফিক্স — হালকা হেডারের সঙ্গে মানানসই
+   (এই পুরো ব্লকটা style.css-এর একদম শেষে পেস্ট করুন)
+=========================================================== */
+
+/* --- কম্পিউটার: ড্রপডাউন প্যানেল (আগে গাঢ় নীল জমিতে গাঢ় লেখা ছিল, তাই পড়া যেত না) --- */
+nav.main-nav .dropdown-panel {
+  background: #fff;
+  border: 1px solid rgba(15, 37, 64, .08);
+  border-radius: 14px;
+  box-shadow: 0 18px 40px rgba(15, 37, 64, .16);
+  padding: 8px;
+}
+nav.main-nav .dropdown-panel a {
+  display: flex;                 /* আইকন আর লেখা পাশাপাশি */
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: #2D3748;
+  font-size: .92rem;
+}
+nav.main-nav .dropdown-panel a::after { display: none; }
+nav.main-nav .dropdown-panel a:hover,
+nav.main-nav .dropdown-panel a:focus-visible,
+nav.main-nav .dropdown-panel a.active {
+  background: rgba(248, 113, 29, .10) !important;
+  color: var(--primary-color);
+  border: 0;
+}
+nav.main-nav .dropdown-panel a .dd-ic {
+  width: 30px;
+  height: 30px;
+  background: rgba(248, 113, 29, .12);
+  color: var(--gold-light);
+}
+
+/* --- মোবাইল / ট্যাবলেট: স্লাইড মেনু --- */
+@media (max-width: 940px) {
+  /* সাবমেনু খোলার তীর এখন স্পষ্ট দেখা যাবে; লিংকের ভেতরের দ্বিতীয় তীর সরানো */
+  .dd-toggle { color: #2D3748; }
+  nav.main-nav li.has-dropdown > a .caret { display: none; }
+
+  /* সাবমেনু বক্স: স্লাইডের প্রস্থের ভেতরেই থাকবে, নরম কমলা আভা */
+  nav.main-nav .dropdown-panel {
+    min-width: 0;
+    width: 100%;
+    background: rgba(248, 113, 29, .06);
+    border: 0;
+    border-radius: 12px;
+    box-shadow: none;
+    padding: 6px;
+    margin: 4px 0 10px;
+  }
+  nav.main-nav .dropdown-panel a { padding: 11px 10px; }
+
+  /* স্লাইডের লিংক: নিচের মোটা দাগের বদলে নরম রাউন্ড হাইলাইট */
+  nav.main-nav > ul > li > a:not(.nav-cta) {
+    padding: 13px 14px;
+    border-bottom: 0 !important;
+    border-radius: 12px;
+  }
+  nav.main-nav > ul > li > a:not(.nav-cta):hover,
+  nav.main-nav > ul > li > a.active:not(.nav-cta) {
+    background: rgba(248, 113, 29, .10) !important;
+    border-bottom: 0 !important;
+  }
+
+  /* স্লাইডের ওপরের ব্র্যান্ডে হোভার করলে কমলা দাগ আসবে না */
+  nav.main-nav .nav-brand:hover,
+  nav.main-nav .nav-brand.active {
+    color: inherit;
+    border-bottom: 1px solid rgba(15, 37, 64, .10);
+  }
+}
+
+/* ===========================================================
+   নেভবার (হেডার) ছোট করা — Saimum-এর মাপে। টপবার অপরিবর্তিত।
+   শুধু কম্পিউটার সাইজে (৯৪১px+) কাজ করে; মোবাইল স্লাইড আগের মতোই।
+=========================================================== */
+@media (min-width: 941px) {
+  header.site-header .nav-wrap {
+    padding-top: 10px;
+    padding-bottom: 10px;
+  }
+  nav.main-nav a {
+    line-height: 1.4;
+    padding: 8px 14px;
+    font-size: .9rem;
+  }
+  nav.main-nav .nav-cta {
+    padding: 7px 18px !important;
+    font-size: .9rem;
+  }
 }
