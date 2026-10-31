@@ -4077,7 +4077,6 @@ button.nav-cta {
 #cocurricular {
   padding: 40px 0;
 }
-
 /* 2. Main Layout */
 .iks-main-grid {
   display: grid;
@@ -4093,7 +4092,7 @@ button.nav-cta {
 }
 
 /* 3. Left Side Content */
-.iks-kicker {
+/* .iks-kicker {
   display: inline-flex;
   align-items: center;
   gap: 5px;
@@ -4106,7 +4105,7 @@ button.nav-cta {
   font-weight: bold;
   margin-bottom: 20px;
   letter-spacing: 0.02em;
-}
+} */
 
 .iks-title {
   position: relative;
@@ -4725,4 +4724,26 @@ nav.main-nav .dropdown-panel a .dd-ic {
     padding: 7px 18px !important;
     font-size: .9rem;
   }
+}
+
+/* ===========================================================
+   স্লাইড মেনু: রিসাইজের ঝলক বন্ধ + ব্র্যান্ড ছোট ও পরিপাটি
+=========================================================== */
+html.is-resizing nav.main-nav,
+html.is-resizing nav.main-nav * {
+  transition: none !important;
+}
+
+@media (max-width: 940px) {
+  nav.main-nav .nav-brand {
+    gap: 8px;
+    padding: calc(var(--topbar-h, 36px) + 12px) 20px 12px;
+  }
+  nav.main-nav .nav-brand img {
+    flex: 0 0 38px;
+    width: 38px;
+    height: 38px;
+  }
+  nav.main-nav .nav-brand .brand-text .bn { font-size: 1rem; }
+  nav.main-nav .nav-brand .brand-text .en { font-size: .58rem; letter-spacing: 1px; }
 }

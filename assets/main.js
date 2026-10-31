@@ -8,6 +8,31 @@ document.addEventListener('DOMContentLoaded', () => {
   setTopbarH();
   window.addEventListener('resize', setTopbarH);
 
+  // ---------- স্লাইড মেনু: রিসাইজে ঝলক বন্ধ, ড্রয়ারে স্ক্রল চালু ----------
+  const rootEl = document.documentElement;
+  const drawerMQ = window.matchMedia('(max-width: 940px)');
+  const navForDrawer = document.querySelector('.main-nav');
+  let resizeTimer;
+  const onResizing = () => {
+    // উইন্ডো ছোট-বড় করার সময় স্লাইডের অ্যানিমেশন কিছুক্ষণ বন্ধ থাকবে
+    rootEl.classList.add('is-resizing');
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => rootEl.classList.remove('is-resizing'), 250);
+  };
+  const syncDrawerMode = () => {
+    if (!navForDrawer) return;
+    if (drawerMQ.matches) {
+      // Lenis যেন ড্রয়ারের ভেতরের স্ক্রল আটকে না দেয়
+      navForDrawer.setAttribute('data-lenis-prevent', '');
+    } else {
+      navForDrawer.removeAttribute('data-lenis-prevent');
+      navForDrawer.classList.remove('open'); // বড় স্ক্রিনে গেলে খোলা মেনু বন্ধ
+    }
+  };
+  window.addEventListener('resize', onResizing);
+  drawerMQ.addEventListener('change', () => { onResizing(); syncDrawerMode(); });
+  syncDrawerMode();
+
   const hamburger = document.querySelector('.hamburger');
   const nav = document.querySelector('.main-nav');
   // মোবাইল স্লাইড মেনুর ওপরে ব্র্যান্ড (লোগো + নাম) বসানো

@@ -148,7 +148,7 @@ body.message-page {
   margin-bottom: 22px;
   overflow: hidden;
   border: 5px solid #fff;
-  border-radius: 88px 88px 24px 24px;
+  border-radius: 5px;
   outline: 1px solid rgba(199, 158, 74, 0.65);
   background: #e7e2d8;
   box-shadow: 0 10px 30px rgba(15, 37, 64, 0.14);
@@ -172,21 +172,6 @@ body.message-page {
   color: #f6e7bc;
   font-family: 'Tiro Bangla', serif;
   font-size: 5rem;
-}
-
-.message-portrait--placeholder i {
-  position: absolute;
-  right: 13px;
-  bottom: 12px;
-  display: grid;
-  width: 34px;
-  height: 34px;
-  place-items: center;
-  border: 1px solid rgba(231, 210, 160, 0.6);
-  border-radius: 50%;
-  color: var(--gold-light);
-  font-size: 1rem;
-  font-style: normal;
 }
 
 .message-role {
